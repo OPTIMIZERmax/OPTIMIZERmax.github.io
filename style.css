@@ -1,15 +1,34 @@
 :root {
   --black: #000000;
+  --background: #010101;
+
   --card: #080808;
-  --card-2: #0d0d0d;
+  --card-secondary: #0c0c0c;
 
   --text: #ffffff;
-  --muted: #8d8d96;
+  --muted: #8b8b95;
+
+  --border: rgba(255, 255, 255, 0.07);
 
   --yellow: #ffb300;
 
+  --success: #57f287;
+  --danger: #ff5365;
+
   --radius: 22px;
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
+
+/* =========================================================
+   RESET
+   ========================================================= */
 
 * {
   box-sizing: border-box;
@@ -17,24 +36,42 @@
 
 html,
 body {
-  margin: 0;
   width: 100%;
   min-height: 100%;
+  margin: 0;
+}
+
+html {
+  background: var(--black);
 }
 
 body {
   min-height: 100vh;
 
-  background: #000;
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(255, 255, 255, 0.025),
+      transparent 35%
+    ),
+    #000;
 
   color: var(--text);
 
   font-family:
-    "Inter",
+    Inter,
     system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
     sans-serif;
 
-  overflow: hidden;
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font: inherit;
 }
 
 /* =========================================================
@@ -48,6 +85,7 @@ body {
   min-height: 100vh;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -55,47 +93,55 @@ body {
 }
 
 /* =========================================================
-   BACKGROUND
+   BACKGROUND GLOW
    ========================================================= */
 
 .background-glow {
   position: fixed;
 
-  width: 380px;
-  height: 380px;
+  width: 420px;
+  height: 420px;
 
   border-radius: 50%;
 
-  filter: blur(120px);
+  filter: blur(130px);
 
-  opacity: 0.12;
+  opacity: 0.08;
 
   pointer-events: none;
+
+  z-index: 0;
 }
 
 .glow-one {
-  background: #ff00cc;
+  top: -220px;
+  left: -180px;
 
-  top: -180px;
-  left: -120px;
+  background: #ff00cc;
 }
 
 .glow-two {
-  background: #00eaff;
+  top: 25%;
+  right: -220px;
 
-  right: -150px;
-  top: 30%;
+  background: #00d9ff;
 }
 
 .glow-three {
-  background: #7a00ff;
+  bottom: -240px;
+  left: 30%;
 
-  bottom: -180px;
-  left: 35%;
+  background: #7200ff;
 }
 
 /* =========================================================
    NEON FRAME
+   =========================================================
+   
+   IMPORTANT:
+   - The frame NEVER rotates.
+   - The card NEVER rotates.
+   - Only ::before and ::after animate.
    ========================================================= */
 
 .neon-frame {
@@ -107,65 +153,129 @@ body {
 
   border-radius: 25px;
 
-  background:
-    conic-gradient(
-      from 0deg,
-      #ff0055,
-      #ff00cc,
-      #7a00ff,
-      #00c8ff,
-      #00ff88,
-      #fff200,
-      #ff6a00,
-      #ff0055
-    );
+  /*
+   * The frame itself is completely static.
+   */
+  background: #050505;
 
-  animation:
-    rainbow-spin 5s linear infinite;
-
+  /*
+   * Subtle static shadow.
+   */
   box-shadow:
-    0 0 25px rgba(255, 0, 170, 0.12),
-    0 0 60px rgba(0, 200, 255, 0.08);
+    0 20px 60px
+      rgba(0, 0, 0, 0.65);
 }
+
+/* =========================================================
+   MOVING RAINBOW BORDER
+   ========================================================= */
 
 .neon-frame::before {
   content: "";
 
   position: absolute;
 
-  inset: -4px;
+  inset: -2px;
 
-  border-radius: 28px;
+  border-radius: 27px;
 
   background:
     conic-gradient(
       from 0deg,
+
+      #ff0055 0deg,
+      #ff00cc 45deg,
+      #8a00ff 90deg,
+      #005cff 135deg,
+      #00d9ff 180deg,
+      #00ff88 225deg,
+      #fff200 270deg,
+      #ff7a00 315deg,
+      #ff0055 360deg
+    );
+
+  /*
+   * Keep the rainbow behind the card.
+   */
+  z-index: 0;
+
+  /*
+   * Cut out the middle.
+   * This leaves ONLY the perimeter visible.
+   */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  -webkit-mask-composite: xor;
+
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  mask-composite: exclude;
+
+  padding: 2px;
+
+  /*
+   * ONLY THE BORDER ROTATES.
+   */
+  animation:
+    rainbow-border-spin
+    4s linear infinite;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   SOFT NEON GLOW
+   ========================================================= */
+
+.neon-frame::after {
+  content: "";
+
+  position: absolute;
+
+  inset: -9px;
+
+  border-radius: 32px;
+
+  background:
+    conic-gradient(
+      from 0deg,
+
       #ff0055,
       #ff00cc,
-      #7a00ff,
-      #00c8ff,
+      #8a00ff,
+      #005cff,
+      #00d9ff,
       #00ff88,
       #fff200,
-      #ff6a00,
+      #ff7a00,
       #ff0055
     );
 
-  filter: blur(15px);
+  filter: blur(17px);
 
-  opacity: 0.22;
+  opacity: 0.18;
 
   z-index: -1;
 
   animation:
-    rainbow-spin 5s linear infinite;
+    rainbow-border-spin
+    4s linear infinite;
+
+  pointer-events: none;
 }
 
 /* =========================================================
-   CARD
+   VERIFICATION CARD
    ========================================================= */
 
 .verification-card {
   position: relative;
+
+  z-index: 1;
 
   width: 100%;
 
@@ -178,22 +288,51 @@ body {
   background:
     linear-gradient(
       180deg,
-      #0c0c0c,
-      #050505
+      #0b0b0b 0%,
+      #060606 100%
     );
 
   border:
-    1px solid rgba(255,255,255,0.06);
+    1px solid
+      rgba(255, 255, 255, 0.055);
 
   box-shadow:
-    inset 0 1px 0
-      rgba(255,255,255,0.04);
+    inset
+    0 1px 0
+      rgba(255, 255, 255, 0.025);
 
   display: flex;
 
   flex-direction: column;
 
   justify-content: center;
+
+  overflow: hidden;
+}
+
+/*
+ * Subtle top highlight.
+ */
+.verification-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 10%;
+
+  width: 80%;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.12),
+      transparent
+    );
+
+  pointer-events: none;
 }
 
 /* =========================================================
@@ -203,8 +342,8 @@ body {
 .brand {
   position: absolute;
 
-  top: 24px;
-  left: 28px;
+  top: 22px;
+  left: 26px;
 
   display: flex;
 
@@ -227,31 +366,40 @@ body {
   background:
     linear-gradient(
       135deg,
-      #ffcc33,
-      #ff7b00
+      #ffd23f 0%,
+      #ffb000 45%,
+      #ff7300 100%
     );
 
   box-shadow:
-    0 0 22px
-      rgba(255, 174, 0, 0.25);
+    0 0 20px
+      rgba(255, 177, 0, 0.20);
 
   font-size: 20px;
+
+  user-select: none;
 }
 
 .brand-name {
+  color: #ffffff;
+
   font-size: 15px;
 
   font-weight: 800;
 
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .brand-subtitle {
-  color: #66666f;
-
-  font-size: 10px;
-
   margin-top: 1px;
+
+  color: #5f5f68;
+
+  font-size: 9px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.02em;
 }
 
 /* =========================================================
@@ -265,7 +413,7 @@ body {
 
   width: 100%;
 
-  margin-top: 45px;
+  margin-top: 48px;
 
   margin-bottom: 32px;
 }
@@ -283,42 +431,55 @@ body {
 
   border-radius: 50%;
 
-  background: #161616;
+  background: #121212;
 
   border:
-    1px solid #292929;
+    1px solid #252525;
 
-  color: #666;
+  color: #66666f;
 
-  font-size: 11px;
+  font-size: 10px;
 
-  font-weight: 700;
+  font-weight: 800;
 
   transition:
-    all .25s ease;
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
 .progress-step.active {
   color: #000;
 
-  background: #fff;
+  background: #ffffff;
 
-  border-color: #fff;
+  border-color: #ffffff;
 
   box-shadow:
     0 0 16px
-      rgba(255,255,255,.15);
+      rgba(255, 255, 255, 0.18);
+
+  transform:
+    scale(1.06);
 }
 
 .progress-step.complete {
-  background: #57f287;
-
-  border-color: #57f287;
-
   color: #000;
+
+  background: var(--success);
+
+  border-color: var(--success);
+
+  box-shadow:
+    0 0 15px
+      rgba(87, 242, 135, 0.14);
 }
 
 .progress-line {
+  position: relative;
+
   flex: 1;
 
   height: 1px;
@@ -326,9 +487,7 @@ body {
   margin:
     0 8px;
 
-  background: #222;
-
-  position: relative;
+  background: #1d1d1d;
 
   overflow: hidden;
 }
@@ -343,7 +502,9 @@ body {
   text-align: center;
 
   animation:
-    step-in .35s ease;
+    step-in
+    0.35s
+    cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .step.active {
@@ -351,38 +512,44 @@ body {
 }
 
 .step-icon {
+  margin-bottom: 12px;
+
   font-size: 42px;
 
-  margin-bottom: 14px;
+  line-height: 1;
 }
 
 .step-label {
+  margin-bottom: 9px;
+
+  color: #62626b;
+
   font-size: 9px;
 
   font-weight: 800;
 
-  letter-spacing: .2em;
-
-  color: #65656e;
-
-  margin-bottom: 9px;
+  letter-spacing: 0.22em;
 }
 
 .step h1 {
   margin: 0;
 
+  color: #ffffff;
+
   font-size: 28px;
 
-  line-height: 1.15;
+  line-height: 1.12;
 
-  letter-spacing: -.04em;
+  font-weight: 800;
+
+  letter-spacing: -0.045em;
 }
 
 .step p {
+  max-width: 330px;
+
   margin:
     12px auto 24px;
-
-  max-width: 330px;
 
   color: var(--muted);
 
@@ -396,16 +563,26 @@ body {
    ========================================================= */
 
 .turnstile-wrapper {
+  width: 100%;
+
   display: flex;
 
+  align-items: center;
   justify-content: center;
 
   margin:
     24px 0;
 }
 
+/*
+ * Keeps Turnstile visually separated from the dark card.
+ */
+.turnstile-wrapper > div {
+  max-width: 100%;
+}
+
 /* =========================================================
-   BUTTON
+   GENERAL BUTTON
    ========================================================= */
 
 .neon-button,
@@ -413,7 +590,7 @@ body {
 .secondary-button {
   width: 100%;
 
-  height: 50px;
+  min-height: 50px;
 
   border: 0;
 
@@ -426,10 +603,15 @@ body {
   cursor: pointer;
 
   transition:
-    transform .18s ease,
-    box-shadow .18s ease,
-    opacity .18s ease;
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease,
+    background 0.18s ease;
 }
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
 
 .neon-button {
   display: flex;
@@ -439,9 +621,16 @@ body {
 
   gap: 12px;
 
-  background: #fff;
+  background: #ffffff;
 
-  color: #000;
+  color: #000000;
+}
+
+.neon-button span {
+  font-size: 17px;
+
+  transition:
+    transform 0.18s ease;
 }
 
 .neon-button:hover:not(:disabled) {
@@ -449,15 +638,51 @@ body {
     translateY(-2px);
 
   box-shadow:
-    0 8px 28px
-      rgba(255,255,255,.14);
+    0 10px 30px
+      rgba(255, 255, 255, 0.10);
+}
+
+.neon-button:hover:not(:disabled) span {
+  transform:
+    translateX(3px);
+}
+
+.neon-button:active:not(:disabled) {
+  transform:
+    translateY(0);
 }
 
 .neon-button:disabled {
-  opacity: .25;
+  opacity: 0.25;
 
   cursor:
     not-allowed;
+}
+
+/* =========================================================
+   BUTTON SPINNER
+   ========================================================= */
+
+.button-spinner {
+  width: 14px;
+  height: 14px;
+
+  display: inline-block;
+
+  border:
+    2px solid
+      rgba(0, 0, 0, 0.18);
+
+  border-top-color:
+    #000000;
+
+  border-radius: 50%;
+
+  animation:
+    button-spin
+    0.7s
+    linear
+    infinite;
 }
 
 /* =========================================================
@@ -465,22 +690,38 @@ body {
    ========================================================= */
 
 .challenge {
+  width: 100%;
+
   padding: 18px;
 
   border-radius: 15px;
 
-  background: #0b0b0b;
+  background:
+    linear-gradient(
+      180deg,
+      #0b0b0b,
+      #070707
+    );
 
   border:
-    1px solid #1d1d1d;
+    1px solid #1b1b1b;
+
+  box-shadow:
+    inset
+    0 1px 0
+      rgba(255, 255, 255, 0.025);
 }
 
 .challenge-question {
+  margin-bottom: 16px;
+
+  color: #ffffff;
+
   font-size: 26px;
 
   font-weight: 800;
 
-  margin-bottom: 16px;
+  letter-spacing: -0.04em;
 }
 
 .challenge-input {
@@ -488,45 +729,61 @@ body {
 
   height: 48px;
 
-  border-radius: 11px;
-
-  border:
-    1px solid #242424;
-
-  background: #050505;
-
-  color: #fff;
-
-  text-align: center;
+  margin-bottom: 10px;
 
   padding:
     0 14px;
 
+  border:
+    1px solid #242424;
+
+  border-radius: 11px;
+
   outline: none;
 
-  margin-bottom: 10px;
+  background: #030303;
+
+  color: #ffffff;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.challenge-input::placeholder {
+  color: #47474e;
 }
 
 .challenge-input:focus {
-  border-color: #666;
+  border-color: #55555d;
 
   box-shadow:
     0 0 0 3px
-      rgba(255,255,255,.04);
+      rgba(255, 255, 255, 0.035);
 }
+
+/* =========================================================
+   ERRORS
+   ========================================================= */
 
 .error {
   min-height: 18px;
 
-  color: #ff5c6c;
+  margin-top: 9px;
+
+  color: #ff596a;
 
   font-size: 11px;
 
-  margin-top: 9px;
+  line-height: 1.5;
 }
 
 /* =========================================================
-   DISCORD
+   DISCORD BUTTON
    ========================================================= */
 
 .discord-button {
@@ -537,35 +794,59 @@ body {
 
   gap: 9px;
 
-  color: #fff;
-
   background:
     #5865f2;
 
+  color: #ffffff;
+
   box-shadow:
-    0 10px 30px
-      rgba(88,101,242,.18);
+    0 12px 30px
+      rgba(88, 101, 242, 0.16);
 }
 
 .discord-button:hover {
+  background:
+    #4752c4;
+
   transform:
     translateY(-2px);
 
   box-shadow:
-    0 14px 35px
-      rgba(88,101,242,.25);
+    0 16px 35px
+      rgba(88, 101, 242, 0.22);
+}
+
+.discord-button:active {
+  transform:
+    translateY(0);
 }
 
 .discord-icon {
-  font-size: 18px;
+  font-size: 17px;
 }
 
+/* =========================================================
+   STATUS
+   ========================================================= */
+
 .status {
-  color: #777;
+  min-height: 18px;
+
+  margin-top: 12px;
+
+  color: #707079;
 
   font-size: 11px;
 
-  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.status[data-status="error"] {
+  color: var(--danger);
+}
+
+.status[data-status="success"] {
+  color: var(--success);
 }
 
 /* =========================================================
@@ -587,19 +868,22 @@ body {
   border-radius: 50%;
 
   background:
-    rgba(87,242,135,.08);
+    rgba(87, 242, 135, 0.055);
 
   border:
     1px solid
-      rgba(87,242,135,.35);
+      rgba(87, 242, 135, 0.30);
 
-  color: #57f287;
+  color:
+    var(--success);
 
-  font-size: 30px;
+  font-size: 29px;
+
+  font-weight: 800;
 
   box-shadow:
-    0 0 40px
-      rgba(87,242,135,.08);
+    0 0 35px
+      rgba(87, 242, 135, 0.06);
 }
 
 .success-message {
@@ -609,15 +893,18 @@ body {
 
   border-radius: 12px;
 
-  background: #0c150f;
+  background:
+    rgba(87, 242, 135, 0.045);
 
   border:
     1px solid
-      rgba(87,242,135,.12);
+      rgba(87, 242, 135, 0.12);
 
-  color: #a6efbb;
+  color: #a5efbb;
 
   font-size: 12px;
+
+  line-height: 1.6;
 }
 
 .success-message span {
@@ -625,7 +912,7 @@ body {
 }
 
 /* =========================================================
-   FATAL ERROR
+   ERROR STATE
    ========================================================= */
 
 .fatal-icon {
@@ -642,27 +929,43 @@ body {
 
   border-radius: 50%;
 
-  color: #ff5365;
+  background:
+    rgba(255, 83, 101, 0.055);
 
   border:
     1px solid
-      rgba(255,83,101,.3);
+      rgba(255, 83, 101, 0.30);
 
-  background:
-    rgba(255,83,101,.06);
+  color:
+    var(--danger);
 
   font-size: 30px;
 
   font-weight: 800;
+
+  box-shadow:
+    0 0 35px
+      rgba(255, 83, 101, 0.05);
 }
 
 .secondary-button {
-  background: #171717;
+  margin-top: 8px;
 
-  color: #fff;
+  background:
+    #151515;
 
   border:
-    1px solid #272727;
+    1px solid #252525;
+
+  color: #ffffff;
+}
+
+.secondary-button:hover {
+  background:
+    #1b1b1b;
+
+  transform:
+    translateY(-1px);
 }
 
 /* =========================================================
@@ -672,7 +975,7 @@ body {
 footer {
   position: absolute;
 
-  bottom: 20px;
+  bottom: 17px;
 
   left: 0;
 
@@ -685,11 +988,13 @@ footer {
 
   gap: 7px;
 
-  color: #4d4d55;
+  color: #48484f;
 
   font-size: 9px;
 
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
+
+  pointer-events: none;
 }
 
 .status-dot {
@@ -698,18 +1003,40 @@ footer {
 
   border-radius: 50%;
 
-  background: #57f287;
+  background:
+    var(--success);
 
   box-shadow:
     0 0 9px
-      rgba(87,242,135,.6);
+      rgba(87, 242, 135, 0.65);
 }
 
 /* =========================================================
-   ANIMATION
+   ANIMATIONS
    ========================================================= */
 
-@keyframes rainbow-spin {
+/*
+ * IMPORTANT:
+ *
+ * The card is NOT animated.
+ *
+ * Only the pseudo-elements containing the rainbow
+ * border rotate.
+ */
+
+@keyframes rainbow-border-spin {
+  from {
+    transform:
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+@keyframes button-spin {
   from {
     transform:
       rotate(0deg);
@@ -747,18 +1074,87 @@ footer {
     padding: 14px;
   }
 
+  .neon-frame {
+    width: 100%;
+
+    border-radius: 22px;
+  }
+
   .verification-card {
     min-height: 540px;
 
     padding:
       28px 22px;
+
+    border-radius: 20px;
+  }
+
+  .brand {
+    top: 19px;
+    left: 20px;
+  }
+
+  .progress {
+    margin-top: 45px;
   }
 
   .step h1 {
     font-size: 24px;
   }
 
-  .brand {
-    left: 22px;
+  .step p {
+    font-size: 12px;
+  }
+
+  .challenge-question {
+    font-size: 23px;
   }
 }
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+  .page {
+    padding: 8px;
+  }
+
+  .verification-card {
+    padding:
+      24px 17px;
+  }
+
+  .brand {
+    left: 17px;
+  }
+
+  .step h1 {
+    font-size: 22px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .neon-frame::before,
+  .neon-frame::after,
+  .step,
+  .button-spinner {
+    animation:
+      none !important;
+  }
+
+  .neon-button,
+  .discord-button,
+  .secondary-button,
+  .progress-step {
+    transition:
+      none !important;
+  }
+}
+
