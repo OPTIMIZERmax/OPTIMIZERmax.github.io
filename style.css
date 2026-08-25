@@ -1,21 +1,30 @@
+```css
 :root {
   --black: #000000;
-  --background: #010101;
+  --background: #000000;
 
   --card: #080808;
-  --card-secondary: #0c0c0c;
+  --card-deep: #050505;
 
   --text: #ffffff;
   --muted: #8b8b95;
-
-  --border: rgba(255, 255, 255, 0.07);
+  --subtle: #55555f;
 
   --yellow: #ffb300;
 
   --success: #57f287;
   --danger: #ff5365;
 
-  --radius: 22px;
+  --card-radius: 22px;
+
+  /*
+   * Animated gradient angle.
+   *
+   * IMPORTANT:
+   * We animate the GRADIENT ANGLE.
+   * We do NOT rotate the card or border element.
+   */
+  --rainbow-angle: 0deg;
 
   font-family:
     Inter,
@@ -27,6 +36,16 @@
 }
 
 /* =========================================================
+   CSS PROPERTY FOR THE MOVING GRADIENT
+   ========================================================= */
+
+@property --rainbow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* =========================================================
    RESET
    ========================================================= */
 
@@ -34,27 +53,26 @@
   box-sizing: border-box;
 }
 
-html,
-body {
+html {
   width: 100%;
   min-height: 100%;
-  margin: 0;
-}
 
-html {
-  background: var(--black);
+  background: #000000;
 }
 
 body {
+  width: 100%;
   min-height: 100vh;
+
+  margin: 0;
 
   background:
     radial-gradient(
-      circle at 50% 35%,
+      circle at 50% 40%,
       rgba(255, 255, 255, 0.025),
-      transparent 35%
+      transparent 38%
     ),
-    #000;
+    #000000;
 
   color: var(--text);
 
@@ -93,7 +111,7 @@ input {
 }
 
 /* =========================================================
-   BACKGROUND GLOW
+   BACKGROUND AMBIENT LIGHT
    ========================================================= */
 
 .background-glow {
@@ -104,9 +122,9 @@ input {
 
   border-radius: 50%;
 
-  filter: blur(130px);
+  filter: blur(140px);
 
-  opacity: 0.08;
+  opacity: 0.07;
 
   pointer-events: none;
 
@@ -114,34 +132,37 @@ input {
 }
 
 .glow-one {
-  top: -220px;
-  left: -180px;
+  top: -250px;
+  left: -200px;
 
-  background: #ff00cc;
+  background: #ff0088;
 }
 
 .glow-two {
+  right: -250px;
   top: 25%;
-  right: -220px;
 
-  background: #00d9ff;
+  background: #00c8ff;
 }
 
 .glow-three {
-  bottom: -240px;
+  bottom: -260px;
   left: 30%;
 
-  background: #7200ff;
+  background: #7500ff;
 }
 
 /* =========================================================
    NEON FRAME
    =========================================================
    
-   IMPORTANT:
-   - The frame NEVER rotates.
-   - The card NEVER rotates.
-   - Only ::before and ::after animate.
+   CRITICAL:
+   
+   .neon-frame NEVER rotates.
+   
+   ::before and ::after NEVER rotate.
+   
+   Only --rainbow-angle changes.
    ========================================================= */
 
 .neon-frame {
@@ -153,21 +174,21 @@ input {
 
   border-radius: 25px;
 
-  /*
-   * The frame itself is completely static.
-   */
   background: #050505;
 
-  /*
-   * Subtle static shadow.
-   */
   box-shadow:
-    0 20px 60px
-      rgba(0, 0, 0, 0.65);
+    0 25px 75px
+      rgba(0, 0, 0, 0.75);
+
+  /*
+   * No transform.
+   *
+   * No animation.
+   */
 }
 
 /* =========================================================
-   MOVING RAINBOW BORDER
+   RAINBOW BORDER
    ========================================================= */
 
 .neon-frame::before {
@@ -175,33 +196,30 @@ input {
 
   position: absolute;
 
-  inset: -2px;
+  inset: 0;
 
-  border-radius: 27px;
+  border-radius: 25px;
 
   background:
     conic-gradient(
-      from 0deg,
+      from var(--rainbow-angle),
 
       #ff0055 0deg,
       #ff00cc 45deg,
-      #8a00ff 90deg,
+      #8500ff 90deg,
       #005cff 135deg,
       #00d9ff 180deg,
       #00ff88 225deg,
-      #fff200 270deg,
-      #ff7a00 315deg,
+      #fff000 270deg,
+      #ff7800 315deg,
       #ff0055 360deg
     );
 
   /*
-   * Keep the rainbow behind the card.
-   */
-  z-index: 0;
-
-  /*
-   * Cut out the middle.
-   * This leaves ONLY the perimeter visible.
+   * Make the middle transparent.
+   *
+   * This leaves the rainbow exactly on the
+   * perimeter of the card.
    */
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -218,17 +236,19 @@ input {
   padding: 2px;
 
   /*
-   * ONLY THE BORDER ROTATES.
+   * ONLY THE ANGLE OF THE COLOURS MOVES.
    */
   animation:
-    rainbow-border-spin
+    rainbow-border
     4s linear infinite;
 
   pointer-events: none;
+
+  z-index: 0;
 }
 
 /* =========================================================
-   SOFT NEON GLOW
+   RAINBOW NEON GLOW
    ========================================================= */
 
 .neon-frame::after {
@@ -236,36 +256,40 @@ input {
 
   position: absolute;
 
-  inset: -9px;
+  inset: -5px;
 
-  border-radius: 32px;
+  border-radius: 30px;
 
   background:
     conic-gradient(
-      from 0deg,
+      from var(--rainbow-angle),
 
       #ff0055,
       #ff00cc,
-      #8a00ff,
+      #8500ff,
       #005cff,
       #00d9ff,
       #00ff88,
-      #fff200,
-      #ff7a00,
+      #fff000,
+      #ff7800,
       #ff0055
     );
 
-  filter: blur(17px);
+  filter: blur(18px);
 
-  opacity: 0.18;
+  opacity: 0.22;
 
-  z-index: -1;
-
+  /*
+   * Same colour animation.
+   * The element itself stays completely still.
+   */
   animation:
-    rainbow-border-spin
+    rainbow-border
     4s linear infinite;
 
   pointer-events: none;
+
+  z-index: -1;
 }
 
 /* =========================================================
@@ -283,13 +307,13 @@ input {
 
   padding: 34px;
 
-  border-radius: var(--radius);
+  border-radius: var(--card-radius);
 
   background:
     linear-gradient(
       180deg,
-      #0b0b0b 0%,
-      #060606 100%
+      #0c0c0c 0%,
+      #050505 100%
     );
 
   border:
@@ -307,28 +331,33 @@ input {
 
   justify-content: center;
 
-  overflow: hidden;
+  /*
+   * Absolutely no transform.
+   */
 }
 
-/*
- * Subtle top highlight.
- */
+/* =========================================================
+   CARD TOP HIGHLIGHT
+   ========================================================= */
+
 .verification-card::before {
   content: "";
 
   position: absolute;
 
   top: 0;
-  left: 10%;
 
-  width: 80%;
+  left: 12%;
+
+  width: 76%;
+
   height: 1px;
 
   background:
     linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.10),
       transparent
     );
 
@@ -342,8 +371,8 @@ input {
 .brand {
   position: absolute;
 
-  top: 22px;
-  left: 26px;
+  top: 21px;
+  left: 25px;
 
   display: flex;
 
@@ -352,9 +381,13 @@ input {
   gap: 10px;
 }
 
+/* =========================================================
+   NEXUSAI PNG LOGO
+   ========================================================= */
+
 .logo {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
 
   display: flex;
 
@@ -363,22 +396,49 @@ input {
 
   border-radius: 11px;
 
+  overflow: hidden;
+
   background:
     linear-gradient(
       135deg,
-      #ffd23f 0%,
-      #ffb000 45%,
-      #ff7300 100%
+      #ffd23f,
+      #ffb000,
+      #ff7300
     );
 
   box-shadow:
-    0 0 20px
-      rgba(255, 177, 0, 0.20);
+    0 0 22px
+      rgba(255, 178, 0, 0.20);
 
-  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.logo-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  padding: 4px;
 
   user-select: none;
+
+  -webkit-user-drag: none;
 }
+
+/*
+ * If standard.png already contains its own background,
+ * this keeps it from appearing stretched.
+ */
+.logo-image[alt] {
+  pointer-events: none;
+}
+
+/* =========================================================
+   BRAND TEXT
+   ========================================================= */
 
 .brand-name {
   color: #ffffff;
@@ -393,7 +453,7 @@ input {
 .brand-subtitle {
   margin-top: 1px;
 
-  color: #5f5f68;
+  color: #5c5c65;
 
   font-size: 9px;
 
@@ -436,7 +496,7 @@ input {
   border:
     1px solid #252525;
 
-  color: #66666f;
+  color: #66666e;
 
   font-size: 10px;
 
@@ -451,22 +511,22 @@ input {
 }
 
 .progress-step.active {
-  color: #000;
+  color: #000000;
 
   background: #ffffff;
 
   border-color: #ffffff;
 
   box-shadow:
-    0 0 16px
-      rgba(255, 255, 255, 0.18);
+    0 0 18px
+      rgba(255, 255, 255, 0.17);
 
   transform:
     scale(1.06);
 }
 
 .progress-step.complete {
-  color: #000;
+  color: #000000;
 
   background: var(--success);
 
@@ -487,7 +547,7 @@ input {
   margin:
     0 8px;
 
-  background: #1d1d1d;
+  background: #1c1c1c;
 
   overflow: hidden;
 }
@@ -512,17 +572,23 @@ input {
 }
 
 .step-icon {
-  margin-bottom: 12px;
+  margin-bottom: 13px;
 
   font-size: 42px;
 
   line-height: 1;
+
+  filter:
+    drop-shadow(
+      0 4px 14px
+      rgba(255, 255, 255, 0.04)
+    );
 }
 
 .step-label {
   margin-bottom: 9px;
 
-  color: #62626b;
+  color: #62626a;
 
   font-size: 9px;
 
@@ -574,15 +640,12 @@ input {
     24px 0;
 }
 
-/*
- * Keeps Turnstile visually separated from the dark card.
- */
 .turnstile-wrapper > div {
   max-width: 100%;
 }
 
 /* =========================================================
-   GENERAL BUTTON
+   PRIMARY BUTTON
    ========================================================= */
 
 .neon-button,
@@ -608,10 +671,6 @@ input {
     opacity 0.18s ease,
     background 0.18s ease;
 }
-
-/* =========================================================
-   PRIMARY BUTTON
-   ========================================================= */
 
 .neon-button {
   display: flex;
@@ -655,12 +714,11 @@ input {
 .neon-button:disabled {
   opacity: 0.25;
 
-  cursor:
-    not-allowed;
+  cursor: not-allowed;
 }
 
 /* =========================================================
-   BUTTON SPINNER
+   LOADING SPINNER
    ========================================================= */
 
 .button-spinner {
@@ -673,20 +731,17 @@ input {
     2px solid
       rgba(0, 0, 0, 0.18);
 
-  border-top-color:
-    #000000;
+  border-top-color: #000000;
 
   border-radius: 50%;
 
   animation:
     button-spin
-    0.7s
-    linear
-    infinite;
+    0.7s linear infinite;
 }
 
 /* =========================================================
-   CHALLENGE
+   CHALLENGE CARD
    ========================================================= */
 
 .challenge {
@@ -767,7 +822,7 @@ input {
 }
 
 /* =========================================================
-   ERRORS
+   ERROR
    ========================================================= */
 
 .error {
@@ -775,7 +830,7 @@ input {
 
   margin-top: 9px;
 
-  color: #ff596a;
+  color: var(--danger);
 
   font-size: 11px;
 
@@ -783,7 +838,7 @@ input {
 }
 
 /* =========================================================
-   DISCORD BUTTON
+   DISCORD
    ========================================================= */
 
 .discord-button {
@@ -912,7 +967,7 @@ input {
 }
 
 /* =========================================================
-   ERROR STATE
+   FATAL ERROR
    ========================================================= */
 
 .fatal-icon {
@@ -1018,21 +1073,22 @@ footer {
 /*
  * IMPORTANT:
  *
- * The card is NOT animated.
+ * Nothing here rotates the card.
  *
- * Only the pseudo-elements containing the rainbow
- * border rotate.
+ * The rainbow gradient angle changes from
+ * 0deg -> 360deg.
+ *
+ * Therefore the border geometry remains fixed while
+ * the colours travel around the actual perimeter.
  */
 
-@keyframes rainbow-border-spin {
+@keyframes rainbow-border {
   from {
-    transform:
-      rotate(0deg);
+    --rainbow-angle: 0deg;
   }
 
   to {
-    transform:
-      rotate(360deg);
+    --rainbow-angle: 360deg;
   }
 }
 
@@ -1109,6 +1165,11 @@ footer {
   .challenge-question {
     font-size: 23px;
   }
+
+  .logo {
+    width: 38px;
+    height: 38px;
+  }
 }
 
 /* =========================================================
@@ -1157,4 +1218,4 @@ footer {
       none !important;
   }
 }
-
+```
