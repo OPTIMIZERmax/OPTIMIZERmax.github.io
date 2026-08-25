@@ -1,15 +1,38 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   />
 
+  <meta
+    name="theme-color"
+    content="#000000"
+  />
+
+  <meta
+    name="description"
+    content="NexusAI secure Discord verification"
+  />
+
   <title>NexusAI • Verification</title>
 
-  <link rel="stylesheet" href="./style.css" />
+  <!-- ===================================================== -->
+  <!-- STYLES -->
+  <!-- ===================================================== -->
+
+  <link
+    rel="stylesheet"
+    href="./style.css"
+  />
+
+  <!-- ===================================================== -->
+  <!-- FONT -->
+  <!-- ===================================================== -->
 
   <link
     rel="preconnect"
@@ -27,7 +50,10 @@
     rel="stylesheet"
   />
 
-  <!-- Cloudflare Turnstile -->
+  <!-- ===================================================== -->
+  <!-- CLOUDFLARE TURNSTILE -->
+  <!-- ===================================================== -->
+
   <script
     src="https://challenges.cloudflare.com/turnstile/v0/api.js"
     async
@@ -37,30 +63,59 @@
 
 <body>
 
-  <!-- Animated background -->
-  <div class="background-glow glow-one"></div>
-  <div class="background-glow glow-two"></div>
-  <div class="background-glow glow-three"></div>
+  <!-- ===================================================== -->
+  <!-- BACKGROUND -->
+  <!-- ===================================================== -->
+
+  <div
+    class="background-glow glow-one"
+    aria-hidden="true"
+  ></div>
+
+  <div
+    class="background-glow glow-two"
+    aria-hidden="true"
+  ></div>
+
+  <div
+    class="background-glow glow-three"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ===================================================== -->
+  <!-- MAIN PAGE -->
+  <!-- ===================================================== -->
 
   <main class="page">
 
-    <!-- ================================================= -->
-    <!-- VERIFICATION CARD -->
-    <!-- ================================================= -->
+    <!-- =================================================== -->
+    <!-- NEON FRAME -->
+    <!-- =================================================== -->
 
     <div class="neon-frame">
 
+      <!-- ================================================= -->
+      <!-- VERIFICATION CARD -->
+      <!-- ================================================= -->
+
       <div class="verification-card">
 
+        <!-- =============================================== -->
         <!-- BRAND -->
+        <!-- =============================================== -->
 
         <header class="brand">
 
           <div class="logo">
-            🥭
+            <img
+              src="./standard.png"
+              alt="NexusAI"
+              class="logo-image"
+            />
           </div>
 
           <div class="brand-text">
+
             <div class="brand-name">
               NexusAI
             </div>
@@ -68,35 +123,50 @@
             <div class="brand-subtitle">
               Secure Verification
             </div>
+
           </div>
 
         </header>
 
+        <!-- =============================================== -->
         <!-- PROGRESS -->
+        <!-- =============================================== -->
 
-        <div class="progress">
+        <div
+          class="progress"
+          aria-label="Verification progress"
+        >
 
           <div
             class="progress-step active"
             id="progress-1"
+            aria-label="Step 1"
           >
             <span>1</span>
           </div>
 
-          <div class="progress-line"></div>
+          <div
+            class="progress-line"
+            aria-hidden="true"
+          ></div>
 
           <div
             class="progress-step"
             id="progress-2"
+            aria-label="Step 2"
           >
             <span>2</span>
           </div>
 
-          <div class="progress-line"></div>
+          <div
+            class="progress-line"
+            aria-hidden="true"
+          ></div>
 
           <div
             class="progress-step"
             id="progress-3"
+            aria-label="Step 3"
           >
             <span>3</span>
           </div>
@@ -104,15 +174,19 @@
         </div>
 
         <!-- ================================================= -->
-        <!-- STEP 1 -->
+        <!-- STEP 1 — CLOUDFLARE TURNSTILE -->
         <!-- ================================================= -->
 
         <section
           id="step-1"
           class="step active"
+          aria-labelledby="step1-title"
         >
 
-          <div class="step-icon">
+          <div
+            class="step-icon"
+            aria-hidden="true"
+          >
             🛡️
           </div>
 
@@ -120,7 +194,7 @@
             STEP 01
           </div>
 
-          <h1>
+          <h1 id="step1-title">
             Verify you're human
           </h1>
 
@@ -128,6 +202,10 @@
             Complete the security check below
             before continuing.
           </p>
+
+          <!-- =========================================== -->
+          <!-- TURNSTILE -->
+          <!-- =========================================== -->
 
           <div class="turnstile-wrapper">
 
@@ -143,27 +221,41 @@
 
           </div>
 
+          <!-- =========================================== -->
+          <!-- CONTINUE -->
+          <!-- =========================================== -->
+
           <button
             id="continue-step-1"
             class="neon-button"
+            type="button"
             disabled
           >
-            Continue
-            <span>→</span>
+            <span class="button-text">
+              Continue
+            </span>
+
+            <span aria-hidden="true">
+              →
+            </span>
           </button>
 
         </section>
 
         <!-- ================================================= -->
-        <!-- STEP 2 -->
+        <!-- STEP 2 — NEXUSAI CUSTOM CHALLENGE -->
         <!-- ================================================= -->
 
         <section
           id="step-2"
           class="step"
+          aria-labelledby="step2-title"
         >
 
-          <div class="step-icon">
+          <div
+            class="step-icon"
+            aria-hidden="true"
+          >
             🧠
           </div>
 
@@ -171,20 +263,25 @@
             STEP 02
           </div>
 
-          <h1>
+          <h1 id="step2-title">
             NexusAI Challenge
           </h1>
 
           <p>
-            Complete the challenge to prove
-            you're not an automated client.
+            Complete the challenge to continue
+            the verification process.
           </p>
+
+          <!-- =========================================== -->
+          <!-- CHALLENGE -->
+          <!-- =========================================== -->
 
           <div class="challenge">
 
             <div
               id="challenge-question"
               class="challenge-question"
+              aria-live="polite"
             >
               Loading challenge...
             </div>
@@ -194,20 +291,32 @@
               class="challenge-input"
               type="text"
               autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+              inputmode="text"
               placeholder="Enter your answer"
+              aria-label="Challenge answer"
             />
 
             <button
               id="challenge-submit"
               class="neon-button"
+              type="button"
             >
-              Verify Answer
-              <span>→</span>
+              <span class="button-text">
+                Verify Answer
+              </span>
+
+              <span aria-hidden="true">
+                →
+              </span>
             </button>
 
             <div
               id="challenge-error"
               class="error"
+              role="alert"
+              aria-live="assertive"
             ></div>
 
           </div>
@@ -215,15 +324,19 @@
         </section>
 
         <!-- ================================================= -->
-        <!-- STEP 3 -->
+        <!-- STEP 3 — DISCORD -->
         <!-- ================================================= -->
 
         <section
           id="step-3"
           class="step"
+          aria-labelledby="step3-title"
         >
 
-          <div class="step-icon">
+          <div
+            class="step-icon"
+            aria-hidden="true"
+          >
             💬
           </div>
 
@@ -231,26 +344,43 @@
             STEP 03
           </div>
 
-          <h1>
+          <h1 id="step3-title">
             Connect Discord
           </h1>
 
           <p>
             Connect your Discord account to finish
-            verification.
+            verification and receive access.
           </p>
+
+          <!-- =========================================== -->
+          <!-- DISCORD BUTTON -->
+          <!-- =========================================== -->
 
           <button
             id="discord-login"
             class="discord-button"
+            type="button"
           >
-            <span class="discord-icon">◈</span>
-            Connect Discord
+
+            <span
+              class="discord-icon"
+              aria-hidden="true"
+            >
+              ◈
+            </span>
+
+            <span>
+              Connect Discord
+            </span>
+
           </button>
 
           <div
             id="discord-status"
             class="status"
+            role="status"
+            aria-live="polite"
           ></div>
 
         </section>
@@ -262,9 +392,13 @@
         <section
           id="success"
           class="step"
+          aria-labelledby="success-title"
         >
 
-          <div class="success-icon">
+          <div
+            class="success-icon"
+            aria-hidden="true"
+          >
             ✓
           </div>
 
@@ -272,7 +406,7 @@
             COMPLETE
           </div>
 
-          <h1>
+          <h1 id="success-title">
             Verification complete
           </h1>
 
@@ -282,22 +416,29 @@
           </p>
 
           <div class="success-message">
-            <span>🥭</span>
+            <span aria-hidden="true">
+              🥭
+            </span>
+
             Welcome to NexusAI.
           </div>
 
         </section>
 
         <!-- ================================================= -->
-        <!-- ERROR -->
+        <!-- FATAL ERROR -->
         <!-- ================================================= -->
 
         <section
           id="fatal-error"
           class="step"
+          aria-labelledby="fatal-error-title"
         >
 
-          <div class="fatal-icon">
+          <div
+            class="fatal-icon"
+            aria-hidden="true"
+          >
             !
           </div>
 
@@ -305,16 +446,21 @@
             ERROR
           </div>
 
-          <h1>
+          <h1 id="fatal-error-title">
             Verification failed
           </h1>
 
-          <p id="fatal-error-message">
+          <p
+            id="fatal-error-message"
+            role="alert"
+            aria-live="assertive"
+          >
             Something went wrong.
           </p>
 
           <button
             class="secondary-button"
+            type="button"
             onclick="window.location.reload()"
           >
             Try Again
@@ -322,11 +468,19 @@
 
         </section>
 
+        <!-- ================================================= -->
         <!-- FOOTER -->
+        <!-- ================================================= -->
 
         <footer>
-          <span class="status-dot"></span>
+
+          <span
+            class="status-dot"
+            aria-hidden="true"
+          ></span>
+
           NexusAI Secure Verification
+
         </footer>
 
       </div>
@@ -335,7 +489,15 @@
 
   </main>
 
-  <script src="./script.js"></script>
+  <!-- ===================================================== -->
+  <!-- APPLICATION SCRIPT -->
+  <!-- ===================================================== -->
+
+  <script
+    src="./script.js"
+    defer
+  ></script>
 
 </body>
 </html>
+```
