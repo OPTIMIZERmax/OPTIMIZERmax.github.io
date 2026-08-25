@@ -20,9 +20,9 @@
 
   <title>NexusAI • Verification</title>
 
-  <!-- ======================================================
+  <!-- =====================================================
        FONT
-       ====================================================== -->
+       ===================================================== -->
 
   <link
     rel="preconnect"
@@ -40,9 +40,9 @@
     rel="stylesheet"
   >
 
-  <!-- ======================================================
+  <!-- =====================================================
        CLOUDFLARE TURNSTILE
-       ====================================================== -->
+       ===================================================== -->
 
   <script
     src="https://challenges.cloudflare.com/turnstile/v0/api.js"
@@ -50,101 +50,62 @@
     defer
   ></script>
 
-  <!-- ======================================================
+  <!-- =====================================================
        STYLE
-       ====================================================== -->
+       ===================================================== -->
 
   <style>
 
-    /* ======================================================
+    /* =====================================================
        VARIABLES
-       ====================================================== */
+       ===================================================== */
 
     :root {
+      --background: #000000;
 
-      --background:
-        #000000;
+      --card: #080808;
 
-      --card:
-        #080808;
+      --text: #ffffff;
 
-      --card-deep:
-        #050505;
+      --muted: #8d8d96;
 
-      --text:
-        #ffffff;
+      --success: #57f287;
 
-      --muted:
-        #8d8d96;
+      --danger: #ff5365;
 
-      --success:
-        #57f287;
+      --frame-radius: 28px;
 
-      --danger:
-        #ff5365;
+      --card-radius: 23px;
 
-      --card-radius:
-        22px;
-
-      --frame-radius:
-        27px;
-
-      --rainbow-angle:
-        0deg;
+      --rainbow-angle: 0deg;
     }
-
-
-    /* ======================================================
-       ANIMATED CSS ANGLE
-       ====================================================== */
 
     @property --rainbow-angle {
-
-      syntax:
-        "<angle>";
-
-      initial-value:
-        0deg;
-
-      inherits:
-        false;
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
     }
 
-
-    /* ======================================================
+    /* =====================================================
        RESET
-       ====================================================== */
+       ===================================================== */
 
     * {
-      box-sizing:
-        border-box;
+      box-sizing: border-box;
     }
-
 
     html,
     body {
-
-      width:
-        100%;
-
-      min-height:
-        100%;
-
-      margin:
-        0;
-
-      background:
-        #000000;
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      background: #000000;
     }
 
-
     body {
+      min-height: 100vh;
 
-      min-height:
-        100vh;
-
-      color:
-        var(--text);
+      color: var(--text);
 
       font-family:
         Inter,
@@ -154,141 +115,91 @@
         "Segoe UI",
         sans-serif;
 
-      overflow-x:
-        hidden;
+      overflow-x: hidden;
     }
-
 
     button,
     input {
-
-      font:
-        inherit;
+      font: inherit;
     }
 
-
-    /* ======================================================
-       BACKGROUND
-       ====================================================== */
+    /* =====================================================
+       PAGE
+       ===================================================== */
 
     .page {
+      position: relative;
 
-      position:
-        relative;
+      width: 100%;
+      min-height: 100vh;
 
-      width:
-        100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      min-height:
-        100vh;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      padding:
-        24px;
+      padding: 24px;
     }
 
+    /* =====================================================
+       BACKGROUND GLOW
+       ===================================================== */
 
     .background-glow {
+      position: fixed;
 
-      position:
-        fixed;
+      width: 420px;
+      height: 420px;
 
-      width:
-        420px;
+      border-radius: 50%;
 
-      height:
-        420px;
+      filter: blur(140px);
 
-      border-radius:
-        50%;
+      opacity: 0.07;
 
-      filter:
-        blur(140px);
+      pointer-events: none;
 
-      opacity:
-        0.07;
-
-      pointer-events:
-        none;
-
-      z-index:
-        0;
+      z-index: 0;
     }
-
 
     .glow-one {
-
-      top:
-        -250px;
-
-      left:
-        -200px;
-
-      background:
-        #ff0088;
+      top: -250px;
+      left: -200px;
+      background: #ff0088;
     }
-
 
     .glow-two {
-
-      top:
-        25%;
-
-      right:
-        -240px;
-
-      background:
-        #00c8ff;
+      top: 25%;
+      right: -240px;
+      background: #00c8ff;
     }
-
 
     .glow-three {
-
-      bottom:
-        -250px;
-
-      left:
-        30%;
-
-      background:
-        #7400ff;
+      bottom: -250px;
+      left: 30%;
+      background: #7400ff;
     }
 
-
-    /* ======================================================
+    /* =====================================================
        OUTER NEON FRAME
 
        IMPORTANT:
-       The frame itself NEVER rotates.
+       This element itself never rotates.
 
-       Only --rainbow-angle changes.
-
-       The border is physically part of the frame's
-       background, meaning the corners cannot be covered
-       by the inner card.
-       ====================================================== */
+       The rainbow is the actual background of this frame.
+       Its padding creates a physical border around the card.
+       ===================================================== */
 
     .neon-frame {
+      position: relative;
 
-      position:
-        relative;
+      width: min(460px, 100%);
 
-      width:
-        min(460px, 100%);
+      /*
+       * This is the visible rainbow border thickness.
+       */
+      padding: 4px;
 
-      padding:
-        3px;
-
-      border-radius:
-        var(--frame-radius);
+      border-radius: var(--frame-radius);
 
       background:
         conic-gradient(
@@ -296,7 +207,7 @@
 
           #ff0055 0deg,
           #ff00cc 45deg,
-          #8700ff 90deg,
+          #8500ff 90deg,
           #005cff 135deg,
           #00d9ff 180deg,
           #00ff88 225deg,
@@ -307,43 +218,36 @@
 
       animation:
         rainbow-colours
-        4s
-        linear
-        infinite;
+        4s linear infinite;
 
       box-shadow:
+        0 0 12px rgba(255, 0, 150, 0.16),
+        0 0 32px rgba(0, 200, 255, 0.10),
+        0 25px 80px rgba(0, 0, 0, 0.85);
 
-        0 0 12px
-          rgba(255, 0, 150, 0.12),
+      isolation: isolate;
 
-        0 0 30px
-          rgba(0, 200, 255, 0.08),
-
-        0 24px 80px
-          rgba(0, 0, 0, 0.8);
-
-      isolation:
-        isolate;
+      /*
+       * Explicitly prevent any rotation.
+       */
+      transform: none;
     }
 
+    /* =====================================================
+       NEON GLOW
 
-    /* ======================================================
-       NEON OUTER GLOW
-       ====================================================== */
+       This glows outside the real border.
+       It does NOT cover the border.
+       ===================================================== */
 
     .neon-frame::before {
+      content: "";
 
-      content:
-        "";
+      position: absolute;
 
-      position:
-        absolute;
+      inset: -7px;
 
-      inset:
-        -6px;
-
-      border-radius:
-        calc(var(--frame-radius) + 5px);
+      border-radius: 36px;
 
       background:
         conic-gradient(
@@ -351,7 +255,7 @@
 
           #ff0055,
           #ff00cc,
-          #8700ff,
+          #8500ff,
           #005cff,
           #00d9ff,
           #00ff88,
@@ -360,1047 +264,757 @@
           #ff0055
         );
 
-      filter:
-        blur(18px);
+      filter: blur(18px);
 
-      opacity:
-        0.23;
+      opacity: 0.22;
 
       animation:
         rainbow-colours
-        4s
-        linear
-        infinite;
+        4s linear infinite;
 
-      pointer-events:
-        none;
+      pointer-events: none;
 
-      z-index:
-        -1;
+      z-index: -1;
     }
 
-
-    /* ======================================================
+    /* =====================================================
        INNER CARD
 
-       Notice:
-       There is NO transform.
-       There is NO rotation.
-       ====================================================== */
+       IMPORTANT:
+       The card sits INSIDE the 4px frame padding.
+
+       It does not overlap the rainbow border.
+       ===================================================== */
 
     .verification-card {
+      position: relative;
 
-      position:
-        relative;
+      width: 100%;
 
-      width:
-        100%;
+      min-height: 560px;
 
-      min-height:
-        560px;
+      padding: 34px;
 
-      padding:
-        34px;
-
-      border-radius:
-        var(--card-radius);
+      border-radius: var(--card-radius);
 
       background:
         linear-gradient(
           180deg,
-          #0c0c0c 0%,
+          #0d0d0d 0%,
           #050505 100%
         );
 
-      border:
-        1px solid
-        rgba(255,255,255,0.045);
+      border: none;
 
-      display:
-        flex;
+      display: flex;
 
-      flex-direction:
-        column;
+      flex-direction: column;
 
-      justify-content:
-        center;
+      justify-content: center;
 
-      overflow:
-        hidden;
+      overflow: hidden;
 
-      z-index:
-        1;
+      z-index: 1;
+
+      /*
+       * Absolutely no rotation.
+       */
+      transform: none;
     }
 
-
-    /* ======================================================
+    /* =====================================================
        CARD TOP HIGHLIGHT
-       ====================================================== */
+       ===================================================== */
 
     .verification-card::before {
+      content: "";
 
-      content:
-        "";
+      position: absolute;
 
-      position:
-        absolute;
+      top: 0;
+      left: 12%;
 
-      top:
-        0;
-
-      left:
-        12%;
-
-      width:
-        76%;
-
-      height:
-        1px;
+      width: 76%;
+      height: 1px;
 
       background:
         linear-gradient(
           90deg,
           transparent,
-          rgba(255,255,255,0.12),
+          rgba(255, 255, 255, 0.12),
           transparent
         );
 
-      pointer-events:
-        none;
+      pointer-events: none;
     }
 
-
-    /* ======================================================
+    /* =====================================================
        BRAND
-       ====================================================== */
+       ===================================================== */
 
     .brand {
+      position: absolute;
 
-      position:
-        absolute;
+      top: 21px;
+      left: 25px;
 
-      top:
-        21px;
+      display: flex;
 
-      left:
-        25px;
+      align-items: center;
 
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        10px;
+      gap: 10px;
     }
-
 
     .logo {
+      width: 40px;
+      height: 40px;
 
-      width:
-        40px;
+      flex-shrink: 0;
 
-      height:
-        40px;
+      display: flex;
 
-      border-radius:
-        11px;
+      align-items: center;
+      justify-content: center;
 
-      display:
-        flex;
+      border-radius: 11px;
 
-      align-items:
-        center;
+      overflow: hidden;
 
-      justify-content:
-        center;
-
-      overflow:
-        hidden;
-
-      background:
-        #111;
+      background: #101010;
 
       box-shadow:
-        0 0 18px
-        rgba(255,180,0,0.16);
-
-      flex-shrink:
-        0;
+        0 0 18px rgba(255, 180, 0, 0.16);
     }
-
 
     .logo-image {
+      display: block;
 
-      display:
-        block;
+      width: 100%;
+      height: 100%;
 
-      width:
-        100%;
+      object-fit: contain;
 
-      height:
-        100%;
+      padding: 3px;
 
-      object-fit:
-        contain;
+      user-select: none;
 
-      padding:
-        3px;
+      pointer-events: none;
 
-      user-select:
-        none;
-
-      pointer-events:
-        none;
+      -webkit-user-drag: none;
     }
-
 
     .brand-name {
+      color: #ffffff;
 
-      font-size:
-        15px;
+      font-size: 15px;
 
-      font-weight:
-        800;
+      font-weight: 800;
 
-      letter-spacing:
-        -0.03em;
+      letter-spacing: -0.03em;
     }
-
 
     .brand-subtitle {
+      margin-top: 1px;
 
-      margin-top:
-        1px;
+      color: #5e5e67;
 
-      color:
-        #5e5e67;
+      font-size: 9px;
 
-      font-size:
-        9px;
-
-      font-weight:
-        500;
+      font-weight: 500;
     }
 
-
-    /* ======================================================
+    /* =====================================================
        PROGRESS
-       ====================================================== */
+       ===================================================== */
 
     .progress {
+      width: 100%;
 
-      width:
-        100%;
+      display: flex;
 
-      display:
-        flex;
+      align-items: center;
 
-      align-items:
-        center;
+      margin-top: 48px;
 
-      margin-top:
-        48px;
-
-      margin-bottom:
-        32px;
+      margin-bottom: 32px;
     }
-
 
     .progress-step {
+      width: 30px;
+      height: 30px;
 
-      width:
-        30px;
+      flex-shrink: 0;
 
-      height:
-        30px;
+      display: flex;
 
-      flex-shrink:
-        0;
+      align-items: center;
+      justify-content: center;
 
-      display:
-        flex;
+      border-radius: 50%;
 
-      align-items:
-        center;
+      background: #111111;
 
-      justify-content:
-        center;
+      border: 1px solid #272727;
 
-      border-radius:
-        50%;
+      color: #66666f;
 
-      background:
-        #111111;
+      font-size: 10px;
 
-      border:
-        1px solid
-        #272727;
-
-      color:
-        #66666f;
-
-      font-size:
-        10px;
-
-      font-weight:
-        800;
+      font-weight: 800;
 
       transition:
-        0.25s ease;
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
     }
-
 
     .progress-step.active {
+      background: #ffffff;
 
-      background:
-        #ffffff;
+      border-color: #ffffff;
 
-      border-color:
-        #ffffff;
-
-      color:
-        #000000;
+      color: #000000;
 
       box-shadow:
-        0 0 18px
-        rgba(255,255,255,0.18);
+        0 0 18px rgba(255, 255, 255, 0.18);
 
-      transform:
-        scale(1.06);
+      transform: scale(1.06);
     }
-
 
     .progress-step.complete {
+      background: var(--success);
 
-      background:
-        var(--success);
+      border-color: var(--success);
 
-      border-color:
-        var(--success);
+      color: #000000;
 
-      color:
-        #000000;
+      box-shadow:
+        0 0 15px rgba(87, 242, 135, 0.12);
     }
-
 
     .progress-line {
+      flex: 1;
 
-      flex:
-        1;
+      height: 1px;
 
-      height:
-        1px;
+      margin: 0 8px;
 
-      margin:
-        0 8px;
-
-      background:
-        #1d1d1d;
+      background: #1d1d1d;
     }
 
-
-    /* ======================================================
+    /* =====================================================
        STEPS
-       ====================================================== */
+       ===================================================== */
 
     .step {
+      display: none;
 
-      display:
-        none;
-
-      text-align:
-        center;
+      text-align: center;
 
       animation:
         step-in
-        0.35s
-        ease;
+        0.35s ease;
     }
-
 
     .step.active {
-
-      display:
-        block;
+      display: block;
     }
-
 
     .step-icon {
+      margin-bottom: 13px;
 
-      margin-bottom:
-        13px;
+      font-size: 42px;
 
-      font-size:
-        42px;
-
-      line-height:
-        1;
+      line-height: 1;
     }
-
 
     .step-label {
+      margin-bottom: 9px;
 
-      margin-bottom:
-        9px;
+      color: #63636b;
 
-      color:
-        #63636b;
+      font-size: 9px;
 
-      font-size:
-        9px;
+      font-weight: 800;
 
-      font-weight:
-        800;
-
-      letter-spacing:
-        0.22em;
+      letter-spacing: 0.22em;
     }
-
 
     .step h1 {
+      margin: 0;
 
-      margin:
-        0;
+      color: #ffffff;
 
-      color:
-        #ffffff;
+      font-size: 28px;
 
-      font-size:
-        28px;
+      line-height: 1.12;
 
-      line-height:
-        1.12;
+      font-weight: 800;
 
-      font-weight:
-        800;
-
-      letter-spacing:
-        -0.045em;
+      letter-spacing: -0.045em;
     }
-
 
     .step p {
+      max-width: 330px;
 
-      max-width:
-        330px;
+      margin: 12px auto 24px;
 
-      margin:
-        12px auto 24px;
+      color: var(--muted);
 
-      color:
-        var(--muted);
+      font-size: 13px;
 
-      font-size:
-        13px;
-
-      line-height:
-        1.65;
+      line-height: 1.65;
     }
 
-
-    /* ======================================================
+    /* =====================================================
        TURNSTILE
-
-       IMPORTANT:
-       No white background is placed around the widget.
-       This keeps the rainbow frame visible at the corners.
-       ====================================================== */
+       ===================================================== */
 
     .turnstile-wrapper {
+      width: 100%;
 
-      width:
-        100%;
+      min-height: 70px;
 
-      display:
-        flex;
+      display: flex;
 
-      align-items:
-        center;
+      align-items: center;
+      justify-content: center;
 
-      justify-content:
-        center;
+      margin: 22px 0 24px;
 
-      margin:
-        22px 0 24px;
-
-      min-height:
-        70px;
-
-      overflow:
-        visible;
+      overflow: visible;
     }
-
 
     .turnstile-wrapper .cf-turnstile {
-
-      max-width:
-        100%;
+      max-width: 100%;
     }
 
-
-    /* ======================================================
+    /* =====================================================
        BUTTONS
-       ====================================================== */
+       ===================================================== */
 
     .neon-button,
     .discord-button,
     .secondary-button {
+      width: 100%;
 
-      width:
-        100%;
+      min-height: 50px;
 
-      min-height:
-        50px;
+      border: 0;
 
-      border:
-        0;
+      border-radius: 13px;
 
-      border-radius:
-        13px;
+      font-size: 13px;
 
-      font-size:
-        13px;
+      font-weight: 700;
 
-      font-weight:
-        700;
-
-      cursor:
-        pointer;
+      cursor: pointer;
 
       transition:
-        0.18s ease;
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        opacity 0.18s ease,
+        background 0.18s ease;
     }
-
 
     .neon-button {
+      display: flex;
 
-      display:
-        flex;
+      align-items: center;
+      justify-content: center;
 
-      align-items:
-        center;
+      gap: 12px;
 
-      justify-content:
-        center;
+      background: #ffffff;
 
-      gap:
-        12px;
-
-      background:
-        #ffffff;
-
-      color:
-        #000000;
+      color: #000000;
     }
 
-
     .neon-button:hover:not(:disabled) {
-
-      transform:
-        translateY(-2px);
+      transform: translateY(-2px);
 
       box-shadow:
         0 10px 30px
-        rgba(255,255,255,0.12);
+        rgba(255, 255, 255, 0.12);
     }
 
+    .neon-button:active:not(:disabled) {
+      transform: translateY(0);
+    }
 
     .neon-button:disabled {
+      opacity: 0.25;
 
-      opacity:
-        0.25;
-
-      cursor:
-        not-allowed;
+      cursor: not-allowed;
     }
-
 
     .neon-button span:last-child {
-
-      font-size:
-        17px;
+      font-size: 17px;
     }
 
-
-    /* ======================================================
+    /* =====================================================
        LOADING SPINNER
-       ====================================================== */
+       ===================================================== */
 
     .button-spinner {
+      display: inline-block;
 
-      display:
-        inline-block;
-
-      width:
-        14px;
-
-      height:
-        14px;
+      width: 14px;
+      height: 14px;
 
       border:
-        2px solid
-        rgba(0,0,0,0.18);
+        2px solid rgba(0, 0, 0, 0.18);
 
-      border-top-color:
-        #000000;
+      border-top-color: #000000;
 
-      border-radius:
-        50%;
+      border-radius: 50%;
 
       animation:
         spin
-        0.7s
-        linear
-        infinite;
+        0.7s linear infinite;
     }
 
-
-    /* ======================================================
-       CHALLENGE
-       ====================================================== */
+    /* =====================================================
+       CUSTOM CHALLENGE
+       ===================================================== */
 
     .challenge {
+      width: 100%;
 
-      width:
-        100%;
+      padding: 18px;
 
-      padding:
-        18px;
+      border-radius: 15px;
 
-      border-radius:
-        15px;
+      background: #080808;
 
-      background:
-        #080808;
+      border: 1px solid #1d1d1d;
 
-      border:
-        1px solid
-        #1d1d1d;
+      box-shadow:
+        inset
+        0 1px 0
+        rgba(255, 255, 255, 0.02);
     }
-
 
     .challenge-question {
+      margin-bottom: 16px;
 
-      margin-bottom:
-        16px;
+      color: #ffffff;
 
-      font-size:
-        26px;
+      font-size: 26px;
 
-      font-weight:
-        800;
+      font-weight: 800;
 
-      letter-spacing:
-        -0.04em;
+      letter-spacing: -0.04em;
     }
-
 
     .challenge-input {
+      width: 100%;
 
-      width:
-        100%;
+      height: 48px;
 
-      height:
-        48px;
+      margin-bottom: 10px;
 
-      margin-bottom:
-        10px;
+      padding: 0 14px;
 
-      padding:
-        0 14px;
+      border: 1px solid #252525;
 
-      border:
-        1px solid
-        #252525;
+      border-radius: 11px;
 
-      border-radius:
-        11px;
+      outline: none;
 
-      outline:
-        none;
+      background: #030303;
 
-      background:
-        #030303;
+      color: #ffffff;
 
-      color:
-        #ffffff;
+      text-align: center;
 
-      text-align:
-        center;
+      font-size: 14px;
 
       transition:
-        0.18s ease;
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
     }
 
-
     .challenge-input:focus {
-
-      border-color:
-        #55555e;
+      border-color: #55555e;
 
       box-shadow:
         0 0 0 3px
-        rgba(255,255,255,0.035);
+        rgba(255, 255, 255, 0.035);
     }
-
 
     .challenge-input::placeholder {
-
-      color:
-        #45454d;
+      color: #45454d;
     }
-
 
     .error {
+      min-height: 18px;
 
-      min-height:
-        18px;
+      margin-top: 9px;
 
-      margin-top:
-        9px;
+      color: var(--danger);
 
-      color:
-        var(--danger);
+      font-size: 11px;
 
-      font-size:
-        11px;
+      line-height: 1.5;
     }
 
-
-    /* ======================================================
-       DISCORD
-       ====================================================== */
+    /* =====================================================
+       DISCORD BUTTON
+       ===================================================== */
 
     .discord-button {
+      display: flex;
 
-      display:
-        flex;
+      align-items: center;
+      justify-content: center;
 
-      align-items:
-        center;
+      gap: 9px;
 
-      justify-content:
-        center;
+      background: #5865f2;
 
-      gap:
-        9px;
-
-      background:
-        #5865f2;
-
-      color:
-        #ffffff;
+      color: #ffffff;
 
       box-shadow:
         0 12px 30px
-        rgba(88,101,242,0.18);
+        rgba(88, 101, 242, 0.18);
     }
-
 
     .discord-button:hover {
+      background: #4752c4;
 
-      background:
-        #4752c4;
+      transform: translateY(-2px);
 
-      transform:
-        translateY(-2px);
+      box-shadow:
+        0 16px 35px
+        rgba(88, 101, 242, 0.24);
     }
 
+    .discord-button:active {
+      transform: translateY(0);
+    }
 
     .discord-icon {
-
-      font-size:
-        17px;
+      font-size: 17px;
     }
-
 
     .status {
+      min-height: 18px;
 
-      min-height:
-        18px;
+      margin-top: 12px;
 
-      margin-top:
-        12px;
+      color: #707079;
 
-      color:
-        #707079;
-
-      font-size:
-        11px;
+      font-size: 11px;
     }
-
 
     .status[data-status="error"] {
-
-      color:
-        var(--danger);
+      color: var(--danger);
     }
 
+    .status[data-status="success"] {
+      color: var(--success);
+    }
 
-    /* ======================================================
+    /* =====================================================
        SUCCESS
-       ====================================================== */
+       ===================================================== */
 
     .success-icon {
+      width: 70px;
+      height: 70px;
 
-      width:
-        70px;
+      margin: 0 auto 16px;
 
-      height:
-        70px;
+      display: flex;
 
-      margin:
-        0 auto 16px;
+      align-items: center;
+      justify-content: center;
 
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      border-radius:
-        50%;
+      border-radius: 50%;
 
       background:
-        rgba(87,242,135,0.05);
+        rgba(87, 242, 135, 0.05);
 
       border:
         1px solid
-        rgba(87,242,135,0.3);
+        rgba(87, 242, 135, 0.3);
 
       color:
         var(--success);
 
-      font-size:
-        30px;
+      font-size: 30px;
 
-      font-weight:
-        800;
+      font-weight: 800;
+
+      box-shadow:
+        0 0 35px
+        rgba(87, 242, 135, 0.05);
     }
-
 
     .success-message {
+      margin-top: 24px;
 
-      margin-top:
-        24px;
+      padding: 14px;
 
-      padding:
-        14px;
-
-      border-radius:
-        12px;
+      border-radius: 12px;
 
       background:
-        rgba(87,242,135,0.04);
+        rgba(87, 242, 135, 0.04);
 
       border:
         1px solid
-        rgba(87,242,135,0.12);
+        rgba(87, 242, 135, 0.12);
 
-      color:
-        #a5efbb;
+      color: #a5efbb;
 
-      font-size:
-        12px;
+      font-size: 12px;
+
+      line-height: 1.6;
     }
-
 
     .success-message span {
-
-      margin-right:
-        6px;
+      margin-right: 6px;
     }
 
-
-    /* ======================================================
-       ERROR PAGE
-       ====================================================== */
+    /* =====================================================
+       FATAL ERROR
+       ===================================================== */
 
     .fatal-icon {
+      width: 70px;
+      height: 70px;
 
-      width:
-        70px;
+      margin: 0 auto 16px;
 
-      height:
-        70px;
+      display: flex;
 
-      margin:
-        0 auto 16px;
+      align-items: center;
+      justify-content: center;
 
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      border-radius:
-        50%;
+      border-radius: 50%;
 
       background:
-        rgba(255,83,101,0.05);
+        rgba(255, 83, 101, 0.05);
 
       border:
         1px solid
-        rgba(255,83,101,0.3);
+        rgba(255, 83, 101, 0.3);
 
       color:
         var(--danger);
 
-      font-size:
-        30px;
+      font-size: 30px;
 
-      font-weight:
-        800;
+      font-weight: 800;
     }
 
-
     .secondary-button {
+      margin-top: 8px;
 
-      margin-top:
-        8px;
-
-      background:
-        #151515;
+      background: #151515;
 
       border:
         1px solid
         #252525;
 
-      color:
-        #ffffff;
+      color: #ffffff;
     }
-
 
     .secondary-button:hover {
+      background: #1c1c1c;
 
-      background:
-        #1c1c1c;
-
-      transform:
-        translateY(-1px);
+      transform: translateY(-1px);
     }
 
-
-    /* ======================================================
+    /* =====================================================
        FOOTER
-       ====================================================== */
+       ===================================================== */
 
     footer {
+      position: absolute;
 
-      position:
-        absolute;
+      bottom: 16px;
 
-      bottom:
-        16px;
+      left: 0;
 
-      left:
-        0;
+      width: 100%;
 
-      width:
-        100%;
+      display: flex;
 
-      display:
-        flex;
+      align-items: center;
+      justify-content: center;
 
-      align-items:
-        center;
+      gap: 7px;
 
-      justify-content:
-        center;
+      color: #48484f;
 
-      gap:
-        7px;
+      font-size: 9px;
 
-      color:
-        #48484f;
+      letter-spacing: 0.04em;
 
-      font-size:
-        9px;
-
-      letter-spacing:
-        0.04em;
-
-      pointer-events:
-        none;
+      pointer-events: none;
     }
 
-
     .status-dot {
+      width: 5px;
+      height: 5px;
 
-      width:
-        5px;
-
-      height:
-        5px;
-
-      border-radius:
-        50%;
+      border-radius: 50%;
 
       background:
         var(--success);
 
       box-shadow:
         0 0 9px
-        rgba(87,242,135,0.65);
+        rgba(87, 242, 135, 0.65);
     }
 
-
-    /* ======================================================
+    /* =====================================================
        ANIMATIONS
-       ====================================================== */
+       ===================================================== */
 
     /*
-     * The BORDER DOES NOT ROTATE.
+     * IMPORTANT:
      *
-     * The CARD DOES NOT ROTATE.
+     * Nothing rotates.
      *
-     * The rainbow gradient angle changes.
+     * The card stays fixed.
+     *
+     * The border stays fixed.
+     *
+     * Only the gradient's angle changes.
      */
 
     @keyframes rainbow-colours {
-
       from {
-        --rainbow-angle:
-          0deg;
+        --rainbow-angle: 0deg;
       }
 
       to {
-        --rainbow-angle:
-          360deg;
+        --rainbow-angle: 360deg;
       }
     }
 
-
     @keyframes step-in {
-
       from {
-        opacity:
-          0;
+        opacity: 0;
 
         transform:
           translateY(10px);
       }
 
       to {
-        opacity:
-          1;
+        opacity: 1;
 
         transform:
           translateY(0);
       }
     }
 
-
     @keyframes spin {
-
       from {
         transform:
           rotate(0deg);
@@ -1412,69 +1026,59 @@
       }
     }
 
-
-    /* ======================================================
+    /* =====================================================
        MOBILE
-       ====================================================== */
+       ===================================================== */
 
     @media (max-width: 520px) {
 
       .page {
-        padding:
-          14px;
+        padding: 14px;
       }
 
       .neon-frame {
-        width:
-          100%;
-
-        padding:
-          3px;
+        width: 100%;
+        padding: 3px;
       }
 
       .verification-card {
-        min-height:
-          540px;
+        min-height: 540px;
 
         padding:
           28px 22px;
       }
 
       .brand {
-        top:
-          19px;
-
-        left:
-          20px;
+        top: 19px;
+        left: 20px;
       }
 
       .progress {
-        margin-top:
-          45px;
+        margin-top: 45px;
       }
 
       .step h1 {
-        font-size:
-          24px;
+        font-size: 24px;
       }
 
       .step p {
-        font-size:
-          12px;
+        font-size: 12px;
       }
 
       .challenge-question {
-        font-size:
-          23px;
+        font-size: 23px;
+      }
+
+      .logo {
+        width: 38px;
+        height: 38px;
       }
     }
-
 
     @media (max-width: 360px) {
 
       .page {
-        padding:
-          8px;
+        padding: 8px;
       }
 
       .verification-card {
@@ -1483,20 +1087,17 @@
       }
 
       .brand {
-        left:
-          17px;
+        left: 17px;
       }
 
       .step h1 {
-        font-size:
-          22px;
+        font-size: 22px;
       }
     }
 
-
-    /* ======================================================
+    /* =====================================================
        REDUCED MOTION
-       ====================================================== */
+       ===================================================== */
 
     @media (prefers-reduced-motion: reduce) {
 
@@ -1504,9 +1105,14 @@
       .neon-frame::before,
       .step,
       .button-spinner {
+        animation: none !important;
+      }
 
-        animation:
-          none !important;
+      .neon-button,
+      .discord-button,
+      .secondary-button,
+      .progress-step {
+        transition: none !important;
       }
     }
 
@@ -1515,9 +1121,9 @@
 
 <body>
 
-  <!-- ======================================================
+  <!-- =====================================================
        BACKGROUND
-       ====================================================== -->
+       ===================================================== -->
 
   <div
     class="background-glow glow-one"
@@ -1534,10 +1140,9 @@
     aria-hidden="true"
   ></div>
 
-
-  <!-- ======================================================
+  <!-- =====================================================
        MAIN
-       ====================================================== -->
+       ===================================================== -->
 
   <main class="page">
 
@@ -1552,13 +1157,11 @@
         <header class="brand">
 
           <div class="logo">
-
             <img
               src="./standard.png"
               alt="NexusAI"
               class="logo-image"
             >
-
           </div>
 
           <div class="brand-text">
@@ -1574,7 +1177,6 @@
           </div>
 
         </header>
-
 
         <!-- =================================================
              PROGRESS
@@ -1594,6 +1196,7 @@
 
           <div
             class="progress-line"
+            aria-hidden="true"
           ></div>
 
           <div
@@ -1605,6 +1208,7 @@
 
           <div
             class="progress-line"
+            aria-hidden="true"
           ></div>
 
           <div
@@ -1616,7 +1220,6 @@
 
         </div>
 
-
         <!-- =================================================
              STEP 1
              ================================================= -->
@@ -1624,6 +1227,7 @@
         <section
           id="step-1"
           class="step active"
+          aria-labelledby="step1-title"
         >
 
           <div
@@ -1637,7 +1241,7 @@
             STEP 01
           </div>
 
-          <h1>
+          <h1 id="step1-title">
             Verify you're human
           </h1>
 
@@ -1646,40 +1250,19 @@
             before continuing.
           </p>
 
-
-          <!-- ===============================================
-               TURNSTILE
-               =============================================== -->
-
           <div class="turnstile-wrapper">
 
             <div
               class="cf-turnstile"
-
-              /*
-               * REPLACE THIS VALUE:
-               *
-               * YOUR_TURNSTILE_SITE_KEY
-               *
-               * with your real Cloudflare Turnstile
-               * site key.
-               */
               data-sitekey="YOUR_TURNSTILE_SITE_KEY"
-
               data-theme="dark"
-
               data-size="flexible"
-
               data-callback="turnstileCompleted"
-
               data-error-callback="turnstileFailed"
-
               data-expired-callback="turnstileExpired"
-
             ></div>
 
           </div>
-
 
           <button
             id="continue-step-1"
@@ -1687,19 +1270,16 @@
             type="button"
             disabled
           >
-
-            <span class="button-text">
+            <span>
               Continue
             </span>
 
-            <span>
+            <span aria-hidden="true">
               →
             </span>
-
           </button>
 
         </section>
-
 
         <!-- =================================================
              STEP 2
@@ -1708,6 +1288,7 @@
         <section
           id="step-2"
           class="step"
+          aria-labelledby="step2-title"
         >
 
           <div
@@ -1721,7 +1302,7 @@
             STEP 02
           </div>
 
-          <h1>
+          <h1 id="step2-title">
             NexusAI Challenge
           </h1>
 
@@ -1730,62 +1311,52 @@
             verification.
           </p>
 
-
           <div class="challenge">
 
             <div
               id="challenge-question"
               class="challenge-question"
+              aria-live="polite"
             >
               Loading challenge...
             </div>
 
-
             <input
               id="challenge-answer"
               class="challenge-input"
-
               type="text"
-
               autocomplete="off"
-
               autocapitalize="none"
-
               spellcheck="false"
-
               inputmode="text"
-
               placeholder="Enter your answer"
+              aria-label="Challenge answer"
             >
-
 
             <button
               id="challenge-submit"
               class="neon-button"
               type="button"
             >
-
               <span>
                 Verify Answer
               </span>
 
-              <span>
+              <span aria-hidden="true">
                 →
               </span>
-
             </button>
-
 
             <div
               id="challenge-error"
               class="error"
               role="alert"
+              aria-live="assertive"
             ></div>
 
           </div>
 
         </section>
-
 
         <!-- =================================================
              STEP 3
@@ -1794,6 +1365,7 @@
         <section
           id="step-3"
           class="step"
+          aria-labelledby="step3-title"
         >
 
           <div
@@ -1807,7 +1379,7 @@
             STEP 03
           </div>
 
-          <h1>
+          <h1 id="step3-title">
             Connect Discord
           </h1>
 
@@ -1815,7 +1387,6 @@
             Connect your Discord account to finish
             verification.
           </p>
-
 
           <button
             id="discord-login"
@@ -1836,15 +1407,14 @@
 
           </button>
 
-
           <div
             id="discord-status"
             class="status"
             role="status"
+            aria-live="polite"
           ></div>
 
         </section>
-
 
         <!-- =================================================
              SUCCESS
@@ -1853,6 +1423,7 @@
         <section
           id="success"
           class="step"
+          aria-labelledby="success-title"
         >
 
           <div
@@ -1866,7 +1437,7 @@
             COMPLETE
           </div>
 
-          <h1>
+          <h1 id="success-title">
             Verification complete
           </h1>
 
@@ -1876,17 +1447,14 @@
           </p>
 
           <div class="success-message">
-
-            <span>
+            <span aria-hidden="true">
               🥭
             </span>
 
             Welcome to NexusAI.
-
           </div>
 
         </section>
-
 
         <!-- =================================================
              ERROR
@@ -1895,6 +1463,7 @@
         <section
           id="fatal-error"
           class="step"
+          aria-labelledby="fatal-error-title"
         >
 
           <div
@@ -1908,12 +1477,14 @@
             ERROR
           </div>
 
-          <h1>
+          <h1 id="fatal-error-title">
             Verification failed
           </h1>
 
           <p
             id="fatal-error-message"
+            role="alert"
+            aria-live="assertive"
           >
             Something went wrong.
           </p>
@@ -1927,7 +1498,6 @@
           </button>
 
         </section>
-
 
         <!-- =================================================
              FOOTER
@@ -1950,208 +1520,130 @@
 
   </main>
 
-
-  <!-- ======================================================
+  <!-- =====================================================
        JAVASCRIPT
-       ====================================================== -->
+       ===================================================== -->
 
   <script>
 
     "use strict";
 
-
-    /* ======================================================
+    /* =====================================================
        CONFIGURATION
-       ====================================================== */
+       ===================================================== */
 
     const CONFIG = {
-
       API_BASE:
         "https://YOUR-VERIFICATION-BACKEND.example.com",
 
       DISCORD_CLIENT_ID:
         "YOUR_DISCORD_CLIENT_ID"
-
     };
 
-
-    /* ======================================================
+    /* =====================================================
        STATE
-       ====================================================== */
+       ===================================================== */
 
-    let turnstileToken =
-      null;
+    let turnstileToken = null;
 
-    let verificationToken =
-      null;
+    let verificationToken = null;
 
-    let verificationStarted =
-      false;
-
-    let challengePassed =
-      false;
-
-
-    /* ======================================================
+    /* =====================================================
        HELPERS
-       ====================================================== */
+       ===================================================== */
 
     function byId(id) {
-
       return document.getElementById(id);
-
     }
 
-
     function getSteps() {
-
       return Array.from(
         document.querySelectorAll(".step")
       );
-
     }
-
 
     function showStep(number) {
 
       getSteps().forEach(
         step => {
-          step.classList.remove(
-            "active"
-          );
+          step.classList.remove("active");
         }
       );
-
 
       const target =
         byId(`step-${number}`);
 
-
       if (target) {
-
-        target.classList.add(
-          "active"
-        );
-
+        target.classList.add("active");
       }
 
-
-      for (
-        let i = 1;
-        i <= 3;
-        i++
-      ) {
+      for (let i = 1; i <= 3; i++) {
 
         const progress =
           byId(`progress-${i}`);
 
-
         if (!progress) {
           continue;
         }
-
 
         progress.classList.remove(
           "active",
           "complete"
         );
 
-
         if (i < number) {
-
-          progress.classList.add(
-            "complete"
-          );
-
+          progress.classList.add("complete");
         }
-
 
         if (i === number) {
-
-          progress.classList.add(
-            "active"
-          );
-
+          progress.classList.add("active");
         }
-
       }
-
     }
 
+    function showFatalError(message) {
+
+      getSteps().forEach(
+        step => {
+          step.classList.remove("active");
+        }
+      );
+
+      byId("fatal-error")
+        ?.classList.add("active");
+
+      const errorElement =
+        byId("fatal-error-message");
+
+      if (errorElement) {
+        errorElement.textContent =
+          message ||
+          "Something went wrong.";
+      }
+    }
 
     function showSuccess() {
 
       getSteps().forEach(
         step => {
-          step.classList.remove(
-            "active"
-          );
+          step.classList.remove("active");
         }
       );
 
-
       byId("success")
-        ?.classList.add(
-          "active"
-        );
-
+        ?.classList.add("active");
 
       document
-        .querySelectorAll(
-          ".progress-step"
-        )
+        .querySelectorAll(".progress-step")
         .forEach(
           element => {
 
-            element.classList.remove(
-              "active"
-            );
+            element.classList.remove("active");
 
-            element.classList.add(
-              "complete"
-            );
-
+            element.classList.add("complete");
           }
         );
-
     }
-
-
-    function showFatalError(
-      message
-    ) {
-
-      getSteps().forEach(
-        step => {
-          step.classList.remove(
-            "active"
-          );
-        }
-      );
-
-
-      byId("fatal-error")
-        ?.classList.add(
-          "active"
-        );
-
-
-      const element =
-        byId(
-          "fatal-error-message"
-        );
-
-
-      if (element) {
-
-        element.textContent =
-          message ||
-          "Something went wrong.";
-
-      }
-
-    }
-
 
     function setStatus(
       message,
@@ -2159,29 +1651,22 @@
     ) {
 
       const element =
-        byId(
-          "discord-status"
-        );
-
+        byId("discord-status");
 
       if (!element) {
         return;
       }
 
-
       element.textContent =
         message || "";
 
-
       element.dataset.status =
         type;
-
     }
 
-
-    /* ======================================================
-       TURNSTILE
-       ====================================================== */
+    /* =====================================================
+       TURNSTILE CALLBACKS
+       ===================================================== */
 
     window.turnstileCompleted =
       function(token) {
@@ -2189,74 +1674,44 @@
         turnstileToken =
           token || null;
 
-
         const button =
-          byId(
-            "continue-step-1"
-          );
-
+          byId("continue-step-1");
 
         if (button) {
-
           button.disabled =
-            !Boolean(
-              turnstileToken
-            );
-
+            !Boolean(turnstileToken);
         }
-
       };
-
 
     window.turnstileFailed =
       function() {
 
-        turnstileToken =
-          null;
-
+        turnstileToken = null;
 
         const button =
-          byId(
-            "continue-step-1"
-          );
-
+          byId("continue-step-1");
 
         if (button) {
-
-          button.disabled =
-            true;
-
+          button.disabled = true;
         }
-
       };
-
 
     window.turnstileExpired =
       function() {
 
-        turnstileToken =
-          null;
-
+        turnstileToken = null;
 
         const button =
-          byId(
-            "continue-step-1"
-          );
-
+          byId("continue-step-1");
 
         if (button) {
-
-          button.disabled =
-            true;
-
+          button.disabled = true;
         }
-
       };
 
-
-    /* ======================================================
+    /* =====================================================
        BUTTON LOADING
-       ====================================================== */
+       ===================================================== */
 
     function setLoading(
       button,
@@ -2267,16 +1722,14 @@
         return;
       }
 
-
       if (loading) {
 
-        button.dataset.original =
-          button.innerHTML;
+        if (!button.dataset.originalHtml) {
+          button.dataset.originalHtml =
+            button.innerHTML;
+        }
 
-
-        button.disabled =
-          true;
-
+        button.disabled = true;
 
         button.innerHTML =
           `
@@ -2286,23 +1739,16 @@
 
       } else {
 
-        if (
-          button.dataset.original
-        ) {
-
+        if (button.dataset.originalHtml) {
           button.innerHTML =
-            button.dataset.original;
-
+            button.dataset.originalHtml;
         }
-
       }
-
     }
 
-
-    /* ======================================================
-       API
-       ====================================================== */
+    /* =====================================================
+       API REQUEST
+       ===================================================== */
 
     async function apiRequest(
       endpoint,
@@ -2318,17 +1764,14 @@
         throw new Error(
           "Verification backend has not been configured yet."
         );
-
       }
-
 
       const response =
         await fetch(
           `${CONFIG.API_BASE}${endpoint}`,
           {
             method:
-              options.method ||
-              "GET",
+              options.method || "GET",
 
             headers: {
               "Content-Type":
@@ -2337,72 +1780,44 @@
 
             body:
               options.body
-                ? JSON.stringify(
-                    options.body
-                  )
+                ? JSON.stringify(options.body)
                 : undefined
           }
         );
 
-
-      let data =
-        null;
-
+      let data = null;
 
       try {
-
         data =
           await response.json();
-
       } catch {
-
-        data =
-          null;
-
+        data = null;
       }
 
-
-      if (
-        !response.ok
-      ) {
-
+      if (!response.ok) {
         throw new Error(
           data?.error ||
           `Server returned HTTP ${response.status}.`
         );
-
       }
 
-
       return data;
-
     }
 
-
-    /* ======================================================
+    /* =====================================================
        STEP 1
-       ====================================================== */
+       ===================================================== */
 
     async function startVerification() {
 
       if (!turnstileToken) {
-
         return;
-
       }
 
-
       const button =
-        byId(
-          "continue-step-1"
-        );
+        byId("continue-step-1");
 
-
-      setLoading(
-        button,
-        true
-      );
-
+      setLoading(button, true);
 
       try {
 
@@ -2410,15 +1825,13 @@
           await apiRequest(
             "/api/verification/start",
             {
-              method:
-                "POST",
+              method: "POST",
 
               body: {
                 turnstileToken
               }
             }
           );
-
 
         if (
           !result?.verificationToken
@@ -2427,56 +1840,32 @@
           throw new Error(
             "Verification server did not return a session token."
           );
-
         }
-
 
         verificationToken =
           result.verificationToken;
-
-
-        verificationStarted =
-          true;
-
-
-        /*
-         * The backend should provide a challenge.
-         */
 
         const question =
           byId(
             "challenge-question"
           );
 
-
         if (question) {
-
           question.textContent =
             result.challenge?.question ||
             "Complete the NexusAI challenge.";
-
         }
-
 
         const answer =
           byId(
             "challenge-answer"
           );
 
-
         if (answer) {
-
           answer.value = "";
-
         }
 
-
-        turnstileToken =
-          null;
-
-
         showStep(2);
-
 
       } catch (error) {
 
@@ -2485,54 +1874,51 @@
           "Unable to start verification."
         );
 
-      }
+      } finally {
 
+        setLoading(button, false);
+
+        /*
+         * Do not re-enable the button after a successful
+         * transition to step 2.
+         */
+        if (
+          byId("step-1")?.classList.contains("active")
+        ) {
+          button.disabled =
+            !Boolean(turnstileToken);
+        }
+      }
     }
 
-
-    /* ======================================================
+    /* =====================================================
        STEP 2
-       ====================================================== */
+       ===================================================== */
 
     async function submitChallenge() {
 
       const answerInput =
-        byId(
-          "challenge-answer"
-        );
-
+        byId("challenge-answer");
 
       const button =
-        byId(
-          "challenge-submit"
-        );
-
+        byId("challenge-submit");
 
       const errorElement =
-        byId(
-          "challenge-error"
-        );
-
+        byId("challenge-error");
 
       const answer =
-        answerInput?.value
-          ?.trim() ||
+        answerInput?.value?.trim() ||
         "";
-
 
       if (!answer) {
 
         if (errorElement) {
-
           errorElement.textContent =
             "Please enter your answer.";
-
         }
 
         return;
-
       }
-
 
       if (!verificationToken) {
 
@@ -2541,23 +1927,16 @@
         );
 
         return;
-
       }
 
+      if (errorElement) {
+        errorElement.textContent = "";
+      }
 
       setLoading(
         button,
         true
       );
-
-
-      if (errorElement) {
-
-        errorElement.textContent =
-          "";
-
-      }
-
 
       try {
 
@@ -2565,8 +1944,7 @@
           await apiRequest(
             "/api/verification/challenge",
             {
-              method:
-                "POST",
+              method: "POST",
 
               body: {
                 verificationToken,
@@ -2575,32 +1953,22 @@
             }
           );
 
-
         if (
           result?.verificationToken
         ) {
 
           verificationToken =
             result.verificationToken;
-
         }
 
-
-        challengePassed =
-          true;
-
-
         showStep(3);
-
 
       } catch (error) {
 
         if (errorElement) {
-
           errorElement.textContent =
             error?.message ||
             "Incorrect answer.";
-
         }
 
       } finally {
@@ -2609,30 +1977,23 @@
           button,
           false
         );
-
       }
-
     }
 
-
-    /* ======================================================
+    /* =====================================================
        DISCORD OAUTH
-       ====================================================== */
+       ===================================================== */
 
     function connectDiscord() {
 
-      if (
-        !verificationToken
-      ) {
+      if (!verificationToken) {
 
         showFatalError(
           "Your verification session has expired."
         );
 
         return;
-
       }
-
 
       if (
         !CONFIG.DISCORD_CLIENT_ID ||
@@ -2647,13 +2008,10 @@
         );
 
         return;
-
       }
-
 
       const redirectUri =
         window.location.href.split("?")[0];
-
 
       const state =
         btoa(
@@ -2664,10 +2022,8 @@
           })
         );
 
-
       const params =
         new URLSearchParams({
-
           client_id:
             CONFIG.DISCORD_CLIENT_ID,
 
@@ -2681,19 +2037,15 @@
             "identify",
 
           state
-
         });
-
 
       window.location.href =
         `https://discord.com/oauth2/authorize?${params.toString()}`;
-
     }
 
-
-    /* ======================================================
-       BUTTON EVENTS
-       ====================================================== */
+    /* =====================================================
+       EVENT HANDLERS
+       ===================================================== */
 
     byId(
       "continue-step-1"
@@ -2702,7 +2054,6 @@
       startVerification
     );
 
-
     byId(
       "challenge-submit"
     )?.addEventListener(
@@ -2710,27 +2061,20 @@
       submitChallenge
     );
 
-
     byId(
       "challenge-answer"
     )?.addEventListener(
       "keydown",
       event => {
 
-        if (
-          event.key ===
-          "Enter"
-        ) {
+        if (event.key === "Enter") {
 
           event.preventDefault();
 
           submitChallenge();
-
         }
-
       }
     );
-
 
     byId(
       "discord-login"
@@ -2739,13 +2083,12 @@
       connectDiscord
     );
 
-
-    /* ======================================================
-       START
-       ====================================================== */
+    /* =====================================================
+       INITIALIZE
+       ===================================================== */
 
     console.log(
-      "[NexusAI] Verification frontend loaded."
+      "[NexusAI] Verification page loaded."
     );
 
   </script>
