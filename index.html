@@ -1,26 +1,22 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
->
+  <meta
+    name="theme-color"
+    content="#000000"
+  >
 
-<meta
-name="theme-color"
-content="#000000"
-
->
-
-<meta
-name="description"
-content="NexusAI secure verification"
-
->
+  <meta
+    name="description"
+    content="NexusAI secure verification"
+  >
 
   <title>NexusAI • Verification</title>
 
@@ -54,12 +50,7 @@ content="NexusAI secure verification"
     defer
   ></script>
 
-  <!-- =====================================================
-       STYLE
-       ===================================================== -->
-
   <style>
-
     /* =====================================================
        VARIABLES
        ===================================================== */
@@ -71,6 +62,7 @@ content="NexusAI secure verification"
       --muted: #8d8d96;
       --success: #57f287;
       --danger: #ff5365;
+      --discord: #5865f2;
 
       --frame-radius: 28px;
       --card-radius: 23px;
@@ -102,7 +94,6 @@ content="NexusAI secure verification"
 
     body {
       min-height: 100vh;
-
       color: var(--text);
 
       font-family:
@@ -121,8 +112,12 @@ content="NexusAI secure verification"
       font: inherit;
     }
 
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
     /* =====================================================
-       PAGE
+       BACKGROUND
        ===================================================== */
 
     .page {
@@ -138,10 +133,6 @@ content="NexusAI secure verification"
       padding: 24px;
     }
 
-    /* =====================================================
-       BACKGROUND GLOW
-       ===================================================== */
-
     .background-glow {
       position: fixed;
 
@@ -152,7 +143,7 @@ content="NexusAI secure verification"
 
       filter: blur(140px);
 
-      opacity: 0.07;
+      opacity: 0.075;
 
       pointer-events: none;
 
@@ -178,7 +169,7 @@ content="NexusAI secure verification"
     }
 
     /* =====================================================
-       OUTER NEON FRAME
+       NEON FRAME
        ===================================================== */
 
     .neon-frame {
@@ -209,25 +200,20 @@ content="NexusAI secure verification"
         4s linear infinite;
 
       box-shadow:
-        0 0 12px rgba(255, 0, 150, 0.16),
-        0 0 32px rgba(0, 200, 255, 0.10),
+        0 0 14px rgba(255, 0, 150, 0.17),
+        0 0 34px rgba(0, 200, 255, 0.11),
         0 25px 80px rgba(0, 0, 0, 0.85);
 
       isolation: isolate;
-
       transform: none;
     }
-
-    /* =====================================================
-       NEON GLOW
-       ===================================================== */
 
     .neon-frame::before {
       content: "";
 
       position: absolute;
 
-      inset: -7px;
+      inset: -8px;
 
       border-radius: 36px;
 
@@ -245,9 +231,9 @@ content="NexusAI secure verification"
           #ff0055
         );
 
-      filter: blur(18px);
+      filter: blur(20px);
 
-      opacity: 0.22;
+      opacity: 0.24;
 
       animation:
         rainbow-colours
@@ -259,14 +245,13 @@ content="NexusAI secure verification"
     }
 
     /* =====================================================
-       INNER CARD
+       CARD
        ===================================================== */
 
     .verification-card {
       position: relative;
 
       width: 100%;
-
       min-height: 560px;
 
       padding: 34px;
@@ -280,12 +265,8 @@ content="NexusAI secure verification"
           #050505 100%
         );
 
-      border: none;
-
       display: flex;
-
       flex-direction: column;
-
       justify-content: center;
 
       overflow: hidden;
@@ -328,7 +309,6 @@ content="NexusAI secure verification"
       left: 25px;
 
       display: flex;
-
       align-items: center;
 
       gap: 10px;
@@ -341,7 +321,6 @@ content="NexusAI secure verification"
       flex-shrink: 0;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
@@ -361,12 +340,11 @@ content="NexusAI secure verification"
       width: 100%;
       height: 100%;
 
-      object-fit: contain;
-
       padding: 3px;
 
-      user-select: none;
+      object-fit: contain;
 
+      user-select: none;
       pointer-events: none;
 
       -webkit-user-drag: none;
@@ -376,7 +354,6 @@ content="NexusAI secure verification"
       color: #ffffff;
 
       font-size: 15px;
-
       font-weight: 800;
 
       letter-spacing: -0.03em;
@@ -388,7 +365,6 @@ content="NexusAI secure verification"
       color: #5e5e67;
 
       font-size: 9px;
-
       font-weight: 500;
     }
 
@@ -400,7 +376,6 @@ content="NexusAI secure verification"
       width: 100%;
 
       display: flex;
-
       align-items: center;
 
       margin-top: 48px;
@@ -414,7 +389,6 @@ content="NexusAI secure verification"
       flex-shrink: 0;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
@@ -427,7 +401,6 @@ content="NexusAI secure verification"
       color: #66666f;
 
       font-size: 10px;
-
       font-weight: 800;
 
       transition:
@@ -504,7 +477,6 @@ content="NexusAI secure verification"
       color: #63636b;
 
       font-size: 9px;
-
       font-weight: 800;
 
       letter-spacing: 0.22em;
@@ -516,9 +488,7 @@ content="NexusAI secure verification"
       color: #ffffff;
 
       font-size: 28px;
-
       line-height: 1.12;
-
       font-weight: 800;
 
       letter-spacing: -0.045em;
@@ -532,7 +502,6 @@ content="NexusAI secure verification"
       color: var(--muted);
 
       font-size: 13px;
-
       line-height: 1.65;
     }
 
@@ -546,7 +515,6 @@ content="NexusAI secure verification"
       min-height: 70px;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
@@ -567,15 +535,12 @@ content="NexusAI secure verification"
     .discord-button,
     .secondary-button {
       width: 100%;
-
       min-height: 50px;
 
       border: 0;
-
       border-radius: 13px;
 
       font-size: 13px;
-
       font-weight: 700;
 
       cursor: pointer;
@@ -589,14 +554,12 @@ content="NexusAI secure verification"
 
     .neon-button {
       display: flex;
-
       align-items: center;
       justify-content: center;
 
       gap: 12px;
 
       background: #ffffff;
-
       color: #000000;
     }
 
@@ -613,8 +576,7 @@ content="NexusAI secure verification"
     }
 
     .neon-button:disabled {
-      opacity: 0.25;
-
+      opacity: 0.28;
       cursor: not-allowed;
     }
 
@@ -623,7 +585,7 @@ content="NexusAI secure verification"
     }
 
     /* =====================================================
-       LOADING SPINNER
+       SPINNER
        ===================================================== */
 
     .button-spinner {
@@ -645,7 +607,7 @@ content="NexusAI secure verification"
     }
 
     /* =====================================================
-       CUSTOM CHALLENGE
+       CHALLENGE
        ===================================================== */
 
     .challenge {
@@ -660,8 +622,7 @@ content="NexusAI secure verification"
       border: 1px solid #1d1d1d;
 
       box-shadow:
-        inset
-        0 1px 0
+        inset 0 1px 0
         rgba(255, 255, 255, 0.02);
     }
 
@@ -671,7 +632,6 @@ content="NexusAI secure verification"
       color: #ffffff;
 
       font-size: 26px;
-
       font-weight: 800;
 
       letter-spacing: -0.04em;
@@ -679,7 +639,6 @@ content="NexusAI secure verification"
 
     .challenge-input {
       width: 100%;
-
       height: 48px;
 
       margin-bottom: 10px;
@@ -687,13 +646,11 @@ content="NexusAI secure verification"
       padding: 0 14px;
 
       border: 1px solid #252525;
-
       border-radius: 11px;
 
       outline: none;
 
       background: #030303;
-
       color: #ffffff;
 
       text-align: center;
@@ -725,24 +682,21 @@ content="NexusAI secure verification"
       color: var(--danger);
 
       font-size: 11px;
-
       line-height: 1.5;
     }
 
     /* =====================================================
-       DISCORD BUTTON
+       DISCORD
        ===================================================== */
 
     .discord-button {
       display: flex;
-
       align-items: center;
       justify-content: center;
 
       gap: 9px;
 
-      background: #5865f2;
-
+      background: var(--discord);
       color: #ffffff;
 
       box-shadow:
@@ -762,6 +716,12 @@ content="NexusAI secure verification"
 
     .discord-button:active {
       transform: translateY(0);
+    }
+
+    .discord-button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+      transform: none;
     }
 
     .discord-icon {
@@ -797,7 +757,6 @@ content="NexusAI secure verification"
       margin: 0 auto 16px;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
@@ -810,11 +769,9 @@ content="NexusAI secure verification"
         1px solid
         rgba(87, 242, 135, 0.3);
 
-      color:
-        var(--success);
+      color: var(--success);
 
       font-size: 30px;
-
       font-weight: 800;
 
       box-shadow:
@@ -839,7 +796,6 @@ content="NexusAI secure verification"
       color: #a5efbb;
 
       font-size: 12px;
-
       line-height: 1.6;
     }
 
@@ -858,7 +814,6 @@ content="NexusAI secure verification"
       margin: 0 auto 16px;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
@@ -871,11 +826,9 @@ content="NexusAI secure verification"
         1px solid
         rgba(255, 83, 101, 0.3);
 
-      color:
-        var(--danger);
+      color: var(--danger);
 
       font-size: 30px;
-
       font-weight: 800;
     }
 
@@ -885,8 +838,7 @@ content="NexusAI secure verification"
       background: #151515;
 
       border:
-        1px solid
-        #252525;
+        1px solid #252525;
 
       color: #ffffff;
     }
@@ -905,13 +857,11 @@ content="NexusAI secure verification"
       position: absolute;
 
       bottom: 16px;
-
       left: 0;
 
       width: 100%;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
@@ -932,8 +882,7 @@ content="NexusAI secure verification"
 
       border-radius: 50%;
 
-      background:
-        var(--success);
+      background: var(--success);
 
       box-shadow:
         0 0 9px
@@ -957,26 +906,22 @@ content="NexusAI secure verification"
     @keyframes step-in {
       from {
         opacity: 0;
-        transform:
-          translateY(10px);
+        transform: translateY(10px);
       }
 
       to {
         opacity: 1;
-        transform:
-          translateY(0);
+        transform: translateY(0);
       }
     }
 
     @keyframes spin {
       from {
-        transform:
-          rotate(0deg);
+        transform: rotate(0deg);
       }
 
       to {
-        transform:
-          rotate(360deg);
+        transform: rotate(360deg);
       }
     }
 
@@ -985,7 +930,6 @@ content="NexusAI secure verification"
        ===================================================== */
 
     @media (max-width: 520px) {
-
       .page {
         padding: 14px;
       }
@@ -1028,7 +972,6 @@ content="NexusAI secure verification"
     }
 
     @media (max-width: 360px) {
-
       .page {
         padding: 8px;
       }
@@ -1051,7 +994,6 @@ content="NexusAI secure verification"
        ===================================================== */
 
     @media (prefers-reduced-motion: reduce) {
-
       .neon-frame,
       .neon-frame::before,
       .step,
@@ -1066,9 +1008,7 @@ content="NexusAI secure verification"
         transition: none !important;
       }
     }
-
   </style>
-
 </head>
 
 <body>
@@ -1098,387 +1038,373 @@ content="NexusAI secure verification"
 
   <main class="page">
 
-```
-<div class="neon-frame">
+    <div class="neon-frame">
 
-  <div class="verification-card">
+      <div class="verification-card">
 
-    <!-- =================================================
-         BRAND
-         ================================================= -->
+        <!-- =================================================
+             BRAND
+             ================================================= -->
 
-    <header class="brand">
+        <header class="brand">
 
-      <div class="logo">
+          <div class="logo">
+            <img
+              src="./standard.png"
+              alt="NexusAI"
+              class="logo-image"
+            >
+          </div>
 
-        <img
-          src="./standard.png"
-          alt="NexusAI"
-          class="logo-image"
+          <div class="brand-text">
+            <div class="brand-name">
+              NexusAI
+            </div>
+
+            <div class="brand-subtitle">
+              Secure Verification
+            </div>
+          </div>
+
+        </header>
+
+        <!-- =================================================
+             PROGRESS
+             ================================================= -->
+
+        <div
+          class="progress"
+          aria-label="Verification progress"
         >
 
-      </div>
+          <div
+            class="progress-step active"
+            id="progress-1"
+          >
+            <span>1</span>
+          </div>
 
-      <div class="brand-text">
+          <div
+            class="progress-line"
+            aria-hidden="true"
+          ></div>
 
-        <div class="brand-name">
-          NexusAI
+          <div
+            class="progress-step"
+            id="progress-2"
+          >
+            <span>2</span>
+          </div>
+
+          <div
+            class="progress-line"
+            aria-hidden="true"
+          ></div>
+
+          <div
+            class="progress-step"
+            id="progress-3"
+          >
+            <span>3</span>
+          </div>
+
         </div>
 
-        <div class="brand-subtitle">
-          Secure Verification
-        </div>
+        <!-- =================================================
+             STEP 1
+             ================================================= -->
 
-      </div>
+        <section
+          id="step-1"
+          class="step active"
+          aria-labelledby="step1-title"
+        >
 
-    </header>
+          <div
+            class="step-icon"
+            aria-hidden="true"
+          >
+            🛡️
+          </div>
 
-    <!-- =================================================
-         PROGRESS
-         ================================================= -->
+          <div class="step-label">
+            STEP 01
+          </div>
 
-    <div
-      class="progress"
-      aria-label="Verification progress"
-    >
+          <h1 id="step1-title">
+            Verify you're human
+          </h1>
 
-      <div
-        class="progress-step active"
-        id="progress-1"
-      >
-        <span>1</span>
-      </div>
+          <p>
+            Complete the security check below
+            before continuing.
+          </p>
 
-      <div
-        class="progress-line"
-        aria-hidden="true"
-      ></div>
+          <div class="turnstile-wrapper">
 
-      <div
-        class="progress-step"
-        id="progress-2"
-      >
-        <span>2</span>
-      </div>
+            <div
+              class="cf-turnstile"
+              data-sitekey="0x4AAAAAAEb1Pia85lYxvMZc"
+              data-theme="dark"
+              data-size="flexible"
+              data-callback="turnstileCompleted"
+              data-error-callback="turnstileFailed"
+              data-expired-callback="turnstileExpired"
+            ></div>
 
-      <div
-        class="progress-line"
-        aria-hidden="true"
-      ></div>
+          </div>
 
-      <div
-        class="progress-step"
-        id="progress-3"
-      >
-        <span>3</span>
+          <button
+            id="continue-step-1"
+            class="neon-button"
+            type="button"
+            disabled
+          >
+            <span class="button-text">
+              Continue
+            </span>
+
+            <span aria-hidden="true">
+              →
+            </span>
+          </button>
+
+        </section>
+
+        <!-- =================================================
+             STEP 2
+             ================================================= -->
+
+        <section
+          id="step-2"
+          class="step"
+          aria-labelledby="step2-title"
+        >
+
+          <div
+            class="step-icon"
+            aria-hidden="true"
+          >
+            🧠
+          </div>
+
+          <div class="step-label">
+            STEP 02
+          </div>
+
+          <h1 id="step2-title">
+            NexusAI Challenge
+          </h1>
+
+          <p>
+            Complete the challenge to continue
+            verification.
+          </p>
+
+          <div class="challenge">
+
+            <div
+              id="challenge-question"
+              class="challenge-question"
+              aria-live="polite"
+            >
+              Loading challenge...
+            </div>
+
+            <input
+              id="challenge-answer"
+              class="challenge-input"
+              type="text"
+              autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+              inputmode="numeric"
+              placeholder="Enter your answer"
+              aria-label="Challenge answer"
+            >
+
+            <button
+              id="challenge-submit"
+              class="neon-button"
+              type="button"
+            >
+              <span>
+                Verify Answer
+              </span>
+
+              <span aria-hidden="true">
+                →
+              </span>
+            </button>
+
+            <div
+              id="challenge-error"
+              class="error"
+              role="alert"
+              aria-live="assertive"
+            ></div>
+
+          </div>
+
+        </section>
+
+        <!-- =================================================
+             STEP 3
+             ================================================= -->
+
+        <section
+          id="step-3"
+          class="step"
+          aria-labelledby="step3-title"
+        >
+
+          <div
+            class="step-icon"
+            aria-hidden="true"
+          >
+            💬
+          </div>
+
+          <div class="step-label">
+            STEP 03
+          </div>
+
+          <h1 id="step3-title">
+            Connect Discord
+          </h1>
+
+          <p>
+            Connect your Discord account to finish
+            verification.
+          </p>
+
+          <button
+            id="discord-login"
+            class="discord-button"
+            type="button"
+          >
+
+            <span
+              class="discord-icon"
+              aria-hidden="true"
+            >
+              ◈
+            </span>
+
+            <span class="discord-button-text">
+              Connect Discord
+            </span>
+
+          </button>
+
+          <div
+            id="discord-status"
+            class="status"
+            role="status"
+            aria-live="polite"
+          ></div>
+
+        </section>
+
+        <!-- =================================================
+             SUCCESS
+             ================================================= -->
+
+        <section
+          id="success"
+          class="step"
+          aria-labelledby="success-title"
+        >
+
+          <div
+            class="success-icon"
+            aria-hidden="true"
+          >
+            ✓
+          </div>
+
+          <div class="step-label">
+            COMPLETE
+          </div>
+
+          <h1 id="success-title">
+            Verification complete
+          </h1>
+
+          <p>
+            Your Discord account has been
+            successfully verified.
+          </p>
+
+          <div class="success-message">
+            <span aria-hidden="true">
+              🥭
+            </span>
+
+            Welcome to NexusAI.
+          </div>
+
+        </section>
+
+        <!-- =================================================
+             ERROR
+             ================================================= -->
+
+        <section
+          id="fatal-error"
+          class="step"
+          aria-labelledby="fatal-error-title"
+        >
+
+          <div
+            class="fatal-icon"
+            aria-hidden="true"
+          >
+            !
+          </div>
+
+          <div class="step-label">
+            ERROR
+          </div>
+
+          <h1 id="fatal-error-title">
+            Verification failed
+          </h1>
+
+          <p
+            id="fatal-error-message"
+            role="alert"
+            aria-live="assertive"
+          >
+            Something went wrong.
+          </p>
+
+          <button
+            id="retry-button"
+            class="secondary-button"
+            type="button"
+          >
+            Try Again
+          </button>
+
+        </section>
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer>
+          <span
+            class="status-dot"
+            aria-hidden="true"
+          ></span>
+
+          NexusAI Secure Verification
+        </footer>
+
       </div>
 
     </div>
-
-    <!-- =================================================
-         STEP 1
-         ================================================= -->
-
-    <section
-      id="step-1"
-      class="step active"
-      aria-labelledby="step1-title"
-    >
-
-      <div
-        class="step-icon"
-        aria-hidden="true"
-      >
-        🛡️
-      </div>
-
-      <div class="step-label">
-        STEP 01
-      </div>
-
-      <h1 id="step1-title">
-        Verify you're human
-      </h1>
-
-      <p>
-        Complete the security check below
-        before continuing.
-      </p>
-
-      <div class="turnstile-wrapper">
-
-        <div
-          class="cf-turnstile"
-          data-sitekey="0x4AAAAAAEb1Pia85lYxvMZc"
-          data-theme="dark"
-          data-size="flexible"
-          data-callback="turnstileCompleted"
-          data-error-callback="turnstileFailed"
-          data-expired-callback="turnstileExpired"
-        ></div>
-
-      </div>
-
-      <button
-        id="continue-step-1"
-        class="neon-button"
-        type="button"
-        disabled
-      >
-
-        <span>
-          Continue
-        </span>
-
-        <span aria-hidden="true">
-          →
-        </span>
-
-      </button>
-
-    </section>
-
-    <!-- =================================================
-         STEP 2
-         ================================================= -->
-
-    <section
-      id="step-2"
-      class="step"
-      aria-labelledby="step2-title"
-    >
-
-      <div
-        class="step-icon"
-        aria-hidden="true"
-      >
-        🧠
-      </div>
-
-      <div class="step-label">
-        STEP 02
-      </div>
-
-      <h1 id="step2-title">
-        NexusAI Challenge
-      </h1>
-
-      <p>
-        Complete the challenge to continue
-        verification.
-      </p>
-
-      <div class="challenge">
-
-        <div
-          id="challenge-question"
-          class="challenge-question"
-          aria-live="polite"
-        >
-          Loading challenge...
-        </div>
-
-        <input
-          id="challenge-answer"
-          class="challenge-input"
-          type="text"
-          autocomplete="off"
-          autocapitalize="none"
-          spellcheck="false"
-          inputmode="text"
-          placeholder="Enter your answer"
-          aria-label="Challenge answer"
-        >
-
-        <button
-          id="challenge-submit"
-          class="neon-button"
-          type="button"
-        >
-
-          <span>
-            Verify Answer
-          </span>
-
-          <span aria-hidden="true">
-            →
-          </span>
-
-        </button>
-
-        <div
-          id="challenge-error"
-          class="error"
-          role="alert"
-          aria-live="assertive"
-        ></div>
-
-      </div>
-
-    </section>
-
-    <!-- =================================================
-         STEP 3
-         ================================================= -->
-
-    <section
-      id="step-3"
-      class="step"
-      aria-labelledby="step3-title"
-    >
-
-      <div
-        class="step-icon"
-        aria-hidden="true"
-      >
-        💬
-      </div>
-
-      <div class="step-label">
-        STEP 03
-      </div>
-
-      <h1 id="step3-title">
-        Connect Discord
-      </h1>
-
-      <p>
-        Connect your Discord account to finish
-        verification.
-      </p>
-
-      <button
-        id="discord-login"
-        class="discord-button"
-        type="button"
-      >
-
-        <span
-          class="discord-icon"
-          aria-hidden="true"
-        >
-          ◈
-        </span>
-
-        <span>
-          Connect Discord
-        </span>
-
-      </button>
-
-      <div
-        id="discord-status"
-        class="status"
-        role="status"
-        aria-live="polite"
-      ></div>
-
-    </section>
-
-    <!-- =================================================
-         SUCCESS
-         ================================================= -->
-
-    <section
-      id="success"
-      class="step"
-      aria-labelledby="success-title"
-    >
-
-      <div
-        class="success-icon"
-        aria-hidden="true"
-      >
-        ✓
-      </div>
-
-      <div class="step-label">
-        COMPLETE
-      </div>
-
-      <h1 id="success-title">
-        Verification complete
-      </h1>
-
-      <p>
-        Your Discord account has been
-        successfully verified.
-      </p>
-
-      <div class="success-message">
-
-        <span aria-hidden="true">
-          🥭
-        </span>
-
-        Welcome to NexusAI.
-
-      </div>
-
-    </section>
-
-    <!-- =================================================
-         ERROR
-         ================================================= -->
-
-    <section
-      id="fatal-error"
-      class="step"
-      aria-labelledby="fatal-error-title"
-    >
-
-      <div
-        class="fatal-icon"
-        aria-hidden="true"
-      >
-        !
-      </div>
-
-      <div class="step-label">
-        ERROR
-      </div>
-
-      <h1 id="fatal-error-title">
-        Verification failed
-      </h1>
-
-      <p
-        id="fatal-error-message"
-        role="alert"
-        aria-live="assertive"
-      >
-        Something went wrong.
-      </p>
-
-      <button
-        class="secondary-button"
-        type="button"
-        onclick="window.location.reload()"
-      >
-        Try Again
-      </button>
-
-    </section>
-
-    <!-- =================================================
-         FOOTER
-         ================================================= -->
-
-    <footer>
-
-      <span
-        class="status-dot"
-        aria-hidden="true"
-      ></span>
-
-      NexusAI Secure Verification
-
-    </footer>
-
-  </div>
-
-</div>
-```
 
   </main>
 
@@ -1487,7 +1413,6 @@ content="NexusAI secure verification"
        ===================================================== -->
 
   <script>
-
     "use strict";
 
     /* =====================================================
@@ -1504,8 +1429,11 @@ content="NexusAI secure verification"
        ===================================================== */
 
     let turnstileToken = null;
-
     let verificationToken = null;
+
+    let isStartingVerification = false;
+    let isSubmittingChallenge = false;
+    let isConnectingDiscord = false;
 
     /* =====================================================
        HELPERS
@@ -1522,12 +1450,9 @@ content="NexusAI secure verification"
     }
 
     function showStep(number) {
-
-      getSteps().forEach(
-        step => {
-          step.classList.remove("active");
-        }
-      );
+      getSteps().forEach(step => {
+        step.classList.remove("active");
+      });
 
       const target =
         byId(`step-${number}`);
@@ -1537,7 +1462,6 @@ content="NexusAI secure verification"
       }
 
       for (let i = 1; i <= 3; i++) {
-
         const progress =
           byId(`progress-${i}`);
 
@@ -1561,36 +1485,25 @@ content="NexusAI secure verification"
     }
 
     function showSuccess() {
-
-      getSteps().forEach(
-        step => {
-          step.classList.remove("active");
-        }
-      );
+      getSteps().forEach(step => {
+        step.classList.remove("active");
+      });
 
       byId("success")
         ?.classList.add("active");
 
       document
         .querySelectorAll(".progress-step")
-        .forEach(
-          element => {
-
-            element.classList.remove("active");
-
-            element.classList.add("complete");
-
-          }
-        );
+        .forEach(element => {
+          element.classList.remove("active");
+          element.classList.add("complete");
+        });
     }
 
     function showFatalError(message) {
-
-      getSteps().forEach(
-        step => {
-          step.classList.remove("active");
-        }
-      );
+      getSteps().forEach(step => {
+        step.classList.remove("active");
+      });
 
       byId("fatal-error")
         ?.classList.add("active");
@@ -1609,7 +1522,6 @@ content="NexusAI secure verification"
       message,
       type = "normal"
     ) {
-
       const element =
         byId("discord-status");
 
@@ -1624,13 +1536,41 @@ content="NexusAI secure verification"
         type;
     }
 
+    function setLoading(
+      button,
+      loading,
+      text = "Checking..."
+    ) {
+      if (!button) {
+        return;
+      }
+
+      if (loading) {
+        if (!button.dataset.originalHtml) {
+          button.dataset.originalHtml =
+            button.innerHTML;
+        }
+
+        button.disabled = true;
+
+        button.innerHTML = `
+          <span class="button-spinner"></span>
+          <span>${text}</span>
+        `;
+      } else {
+        if (button.dataset.originalHtml) {
+          button.innerHTML =
+            button.dataset.originalHtml;
+        }
+      }
+    }
+
     /* =====================================================
-       TURNSTILE CALLBACKS
+       TURNSTILE
        ===================================================== */
 
     window.turnstileCompleted =
       function(token) {
-
         turnstileToken =
           token || null;
 
@@ -1639,13 +1579,13 @@ content="NexusAI secure verification"
 
         if (button) {
           button.disabled =
-            !Boolean(turnstileToken);
+            !Boolean(turnstileToken) ||
+            isStartingVerification;
         }
       };
 
     window.turnstileFailed =
       function() {
-
         turnstileToken = null;
 
         const button =
@@ -1658,7 +1598,6 @@ content="NexusAI secure verification"
 
     window.turnstileExpired =
       function() {
-
         turnstileToken = null;
 
         const button =
@@ -1670,51 +1609,13 @@ content="NexusAI secure verification"
       };
 
     /* =====================================================
-       BUTTON LOADING
-       ===================================================== */
-
-    function setLoading(
-      button,
-      loading
-    ) {
-
-      if (!button) {
-        return;
-      }
-
-      if (loading) {
-
-        if (!button.dataset.originalHtml) {
-          button.dataset.originalHtml =
-            button.innerHTML;
-        }
-
-        button.disabled = true;
-
-        button.innerHTML =
-          `
-            <span class="button-spinner"></span>
-            Checking...
-          `;
-
-      } else {
-
-        if (button.dataset.originalHtml) {
-          button.innerHTML =
-            button.dataset.originalHtml;
-        }
-      }
-    }
-
-    /* =====================================================
-       API REQUEST
+       API
        ===================================================== */
 
     async function apiRequest(
       endpoint,
       options = {}
     ) {
-
       const response =
         await fetch(
           `${CONFIG.API_BASE}${endpoint}`,
@@ -1722,15 +1623,23 @@ content="NexusAI secure verification"
             method:
               options.method || "GET",
 
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
+            headers:
+              options.body
+                ? {
+                    "Content-Type":
+                      "application/json"
+                  }
+                : undefined,
 
             body:
               options.body
-                ? JSON.stringify(options.body)
-                : undefined
+                ? JSON.stringify(
+                    options.body
+                  )
+                : undefined,
+
+            credentials:
+              "omit"
           }
         );
 
@@ -1744,7 +1653,6 @@ content="NexusAI secure verification"
       }
 
       if (!response.ok) {
-
         throw new Error(
           data?.error ||
           `Server returned HTTP ${response.status}.`
@@ -1759,21 +1667,25 @@ content="NexusAI secure verification"
        ===================================================== */
 
     async function startVerification() {
-
-      if (!turnstileToken) {
+      if (
+        !turnstileToken ||
+        isStartingVerification
+      ) {
         return;
       }
+
+      isStartingVerification = true;
 
       const button =
         byId("continue-step-1");
 
       setLoading(
         button,
-        true
+        true,
+        "Checking..."
       );
 
       try {
-
         const result =
           await apiRequest(
             "/api/verification/start",
@@ -1789,9 +1701,8 @@ content="NexusAI secure verification"
         if (
           !result?.verificationToken
         ) {
-
           throw new Error(
-            "Verification server did not return a session token."
+            "The verification server did not return a session token."
           );
         }
 
@@ -1804,11 +1715,9 @@ content="NexusAI secure verification"
           );
 
         if (question) {
-
           question.textContent =
             result.challenge?.question ||
             "Complete the NexusAI challenge.";
-
         }
 
         const answer =
@@ -1818,11 +1727,21 @@ content="NexusAI secure verification"
 
         if (answer) {
           answer.value = "";
+
+          setTimeout(() => {
+            answer.focus();
+          }, 100);
         }
+
+        turnstileToken = null;
 
         showStep(2);
 
       } catch (error) {
+        console.error(
+          "[NexusAI] Step 1 failed:",
+          error
+        );
 
         showFatalError(
           error?.message ||
@@ -1830,6 +1749,7 @@ content="NexusAI secure verification"
         );
 
       } finally {
+        isStartingVerification = false;
 
         setLoading(
           button,
@@ -1841,12 +1761,8 @@ content="NexusAI secure verification"
             ?.classList
             .contains("active")
         ) {
-
           button.disabled =
-            !Boolean(
-              turnstileToken
-            );
-
+            !Boolean(turnstileToken);
         }
       }
     }
@@ -1856,6 +1772,9 @@ content="NexusAI secure verification"
        ===================================================== */
 
     async function submitChallenge() {
+      if (isSubmittingChallenge) {
+        return;
+      }
 
       const answerInput =
         byId("challenge-answer");
@@ -1871,25 +1790,25 @@ content="NexusAI secure verification"
         "";
 
       if (!answer) {
-
         if (errorElement) {
-
           errorElement.textContent =
             "Please enter your answer.";
-
         }
+
+        answerInput?.focus();
 
         return;
       }
 
       if (!verificationToken) {
-
         showFatalError(
-          "Your verification session has expired."
+          "Your verification session has expired. Please restart verification."
         );
 
         return;
       }
+
+      isSubmittingChallenge = true;
 
       if (errorElement) {
         errorElement.textContent = "";
@@ -1897,11 +1816,11 @@ content="NexusAI secure verification"
 
       setLoading(
         button,
-        true
+        true,
+        "Verifying..."
       );
 
       try {
-
         const result =
           await apiRequest(
             "/api/verification/challenge",
@@ -1918,25 +1837,26 @@ content="NexusAI secure verification"
         if (
           result?.verificationToken
         ) {
-
           verificationToken =
             result.verificationToken;
-
         }
 
         showStep(3);
 
       } catch (error) {
+        console.error(
+          "[NexusAI] Step 2 failed:",
+          error
+        );
 
         if (errorElement) {
-
           errorElement.textContent =
             error?.message ||
             "Incorrect answer.";
-
         }
 
       } finally {
+        isSubmittingChallenge = false;
 
         setLoading(
           button,
@@ -1950,9 +1870,11 @@ content="NexusAI secure verification"
        ===================================================== */
 
     function connectDiscord() {
+      if (isConnectingDiscord) {
+        return;
+      }
 
       if (!verificationToken) {
-
         showFatalError(
           "Your verification session has expired. Please restart verification."
         );
@@ -1960,26 +1882,43 @@ content="NexusAI secure verification"
         return;
       }
 
+      isConnectingDiscord = true;
+
+      const button =
+        byId("discord-login");
+
+      const status =
+        byId("discord-status");
+
       setStatus(
         "Opening Discord...",
         "normal"
       );
 
-      const url =
+      if (button) {
+        button.disabled = true;
+
+        button.innerHTML = `
+          <span class="button-spinner"></span>
+          <span>Opening Discord...</span>
+        `;
+      }
+
+      const oauthUrl =
         `${CONFIG.API_BASE}/api/verification/discord?verificationToken=${encodeURIComponent(
           verificationToken
         )}`;
 
-      window.location.href =
-        url;
+      window.location.assign(
+        oauthUrl
+      );
     }
 
     /* =====================================================
-       CHECK RETURN FROM DISCORD
+       VERIFICATION RETURN
        ===================================================== */
 
     function processVerificationResult() {
-
       const params =
         new URLSearchParams(
           window.location.search
@@ -1991,16 +1930,10 @@ content="NexusAI secure verification"
         );
 
       if (
-        result ===
-        "success"
+        result === "success"
       ) {
-
         showSuccess();
 
-        /*
-         * Remove the success parameter from
-         * the visible URL.
-         */
         window.history.replaceState(
           {},
           document.title,
@@ -2011,10 +1944,8 @@ content="NexusAI secure verification"
       }
 
       if (
-        result ===
-        "error"
+        result === "error"
       ) {
-
         showFatalError(
           params.get("message") ||
           "Discord verification failed."
@@ -2033,7 +1964,17 @@ content="NexusAI secure verification"
     }
 
     /* =====================================================
-       EVENT HANDLERS
+       RETRY
+       ===================================================== */
+
+    function retryVerification() {
+      window.location.replace(
+        window.location.pathname
+      );
+    }
+
+    /* =====================================================
+       EVENTS
        ===================================================== */
 
     byId(
@@ -2055,16 +1996,12 @@ content="NexusAI secure verification"
     )?.addEventListener(
       "keydown",
       event => {
-
         if (
-          event.key ===
-          "Enter"
+          event.key === "Enter"
         ) {
-
           event.preventDefault();
 
           submitChallenge();
-
         }
       }
     );
@@ -2076,8 +2013,15 @@ content="NexusAI secure verification"
       connectDiscord
     );
 
+    byId(
+      "retry-button"
+    )?.addEventListener(
+      "click",
+      retryVerification
+    );
+
     /* =====================================================
-       INITIALIZE
+       INITIALIZATION
        ===================================================== */
 
     const returnedFromVerification =
@@ -2086,13 +2030,10 @@ content="NexusAI secure verification"
     if (
       !returnedFromVerification
     ) {
-
       console.log(
         "[NexusAI] Verification frontend loaded."
       );
-
     }
-
   </script>
 
 </body>
