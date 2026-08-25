@@ -2,19 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>NexusAI Verification</title>
+  <title>NexusAI • Verification</title>
+
+  <link rel="stylesheet" href="./style.css" />
 
   <link
-    rel="stylesheet"
-    href="./style.css"
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
   />
 
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Cloudflare Turnstile -->
   <script
     src="https://challenges.cloudflare.com/turnstile/v0/api.js"
     async
@@ -23,221 +36,306 @@
 </head>
 
 <body>
+
+  <!-- Animated background -->
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
+  <div class="background-glow glow-three"></div>
+
   <main class="page">
-    <section class="card">
 
-      <div class="brand">
-        <div class="brand-icon">🥭</div>
+    <!-- ================================================= -->
+    <!-- VERIFICATION CARD -->
+    <!-- ================================================= -->
 
-        <div>
-          <h1>NexusAI</h1>
-          <p>Secure Server Verification</p>
-        </div>
-      </div>
+    <div class="neon-frame">
 
-      <div class="progress">
-        <div class="progress-step active" id="progress-1">
-          <span>1</span>
-          <label>Human Check</label>
-        </div>
+      <div class="verification-card">
 
-        <div class="progress-line"></div>
+        <!-- BRAND -->
 
-        <div class="progress-step" id="progress-2">
-          <span>2</span>
-          <label>NexusAI Check</label>
-        </div>
+        <header class="brand">
 
-        <div class="progress-line"></div>
-
-        <div class="progress-step" id="progress-3">
-          <span>3</span>
-          <label>Discord</label>
-        </div>
-      </div>
-
-      <!-- ================================================ -->
-      <!-- STEP 1 -->
-      <!-- ================================================ -->
-
-      <section
-        id="step-1"
-        class="verification-step active"
-      >
-
-        <div class="step-icon">🛡️</div>
-
-        <h2>Step 1 — Human Verification</h2>
-
-        <p>
-          Complete the Cloudflare security check
-          to continue.
-        </p>
-
-        <div class="turnstile-container">
-          <div
-            class="cf-turnstile"
-            data-sitekey="YOUR_TURNSTILE_SITE_KEY"
-            data-theme="dark"
-            data-size="flexible"
-            data-callback="turnstileCompleted"
-            data-error-callback="turnstileFailed"
-            data-expired-callback="turnstileExpired"
-          ></div>
-        </div>
-
-        <button
-          id="continue-step-1"
-          class="primary-button"
-          disabled
-        >
-          Continue
-        </button>
-
-      </section>
-
-      <!-- ================================================ -->
-      <!-- STEP 2 -->
-      <!-- ================================================ -->
-
-      <section
-        id="step-2"
-        class="verification-step"
-      >
-
-        <div class="step-icon">🧠</div>
-
-        <h2>Step 2 — NexusAI Challenge</h2>
-
-        <p>
-          Complete the NexusAI verification challenge.
-        </p>
-
-        <div class="challenge-card">
-
-          <div
-            id="challenge-question"
-            class="challenge-question"
-          >
-            Loading challenge...
+          <div class="logo">
+            🥭
           </div>
 
-          <input
-            id="challenge-answer"
-            class="challenge-input"
-            type="text"
-            autocomplete="off"
-            placeholder="Enter your answer"
-          />
+          <div class="brand-text">
+            <div class="brand-name">
+              NexusAI
+            </div>
+
+            <div class="brand-subtitle">
+              Secure Verification
+            </div>
+          </div>
+
+        </header>
+
+        <!-- PROGRESS -->
+
+        <div class="progress">
+
+          <div
+            class="progress-step active"
+            id="progress-1"
+          >
+            <span>1</span>
+          </div>
+
+          <div class="progress-line"></div>
+
+          <div
+            class="progress-step"
+            id="progress-2"
+          >
+            <span>2</span>
+          </div>
+
+          <div class="progress-line"></div>
+
+          <div
+            class="progress-step"
+            id="progress-3"
+          >
+            <span>3</span>
+          </div>
+
+        </div>
+
+        <!-- ================================================= -->
+        <!-- STEP 1 -->
+        <!-- ================================================= -->
+
+        <section
+          id="step-1"
+          class="step active"
+        >
+
+          <div class="step-icon">
+            🛡️
+          </div>
+
+          <div class="step-label">
+            STEP 01
+          </div>
+
+          <h1>
+            Verify you're human
+          </h1>
+
+          <p>
+            Complete the security check below
+            before continuing.
+          </p>
+
+          <div class="turnstile-wrapper">
+
+            <div
+              class="cf-turnstile"
+              data-sitekey="YOUR_TURNSTILE_SITE_KEY"
+              data-theme="dark"
+              data-size="flexible"
+              data-callback="turnstileCompleted"
+              data-error-callback="turnstileFailed"
+              data-expired-callback="turnstileExpired"
+            ></div>
+
+          </div>
 
           <button
-            id="challenge-submit"
-            class="primary-button"
+            id="continue-step-1"
+            class="neon-button"
+            disabled
           >
-            Verify Answer
+            Continue
+            <span>→</span>
+          </button>
+
+        </section>
+
+        <!-- ================================================= -->
+        <!-- STEP 2 -->
+        <!-- ================================================= -->
+
+        <section
+          id="step-2"
+          class="step"
+        >
+
+          <div class="step-icon">
+            🧠
+          </div>
+
+          <div class="step-label">
+            STEP 02
+          </div>
+
+          <h1>
+            NexusAI Challenge
+          </h1>
+
+          <p>
+            Complete the challenge to prove
+            you're not an automated client.
+          </p>
+
+          <div class="challenge">
+
+            <div
+              id="challenge-question"
+              class="challenge-question"
+            >
+              Loading challenge...
+            </div>
+
+            <input
+              id="challenge-answer"
+              class="challenge-input"
+              type="text"
+              autocomplete="off"
+              placeholder="Enter your answer"
+            />
+
+            <button
+              id="challenge-submit"
+              class="neon-button"
+            >
+              Verify Answer
+              <span>→</span>
+            </button>
+
+            <div
+              id="challenge-error"
+              class="error"
+            ></div>
+
+          </div>
+
+        </section>
+
+        <!-- ================================================= -->
+        <!-- STEP 3 -->
+        <!-- ================================================= -->
+
+        <section
+          id="step-3"
+          class="step"
+        >
+
+          <div class="step-icon">
+            💬
+          </div>
+
+          <div class="step-label">
+            STEP 03
+          </div>
+
+          <h1>
+            Connect Discord
+          </h1>
+
+          <p>
+            Connect your Discord account to finish
+            verification.
+          </p>
+
+          <button
+            id="discord-login"
+            class="discord-button"
+          >
+            <span class="discord-icon">◈</span>
+            Connect Discord
           </button>
 
           <div
-            id="challenge-error"
-            class="error-message"
+            id="discord-status"
+            class="status"
           ></div>
 
-        </div>
+        </section>
 
-      </section>
+        <!-- ================================================= -->
+        <!-- SUCCESS -->
+        <!-- ================================================= -->
 
-      <!-- ================================================ -->
-      <!-- STEP 3 -->
-      <!-- ================================================ -->
-
-      <section
-        id="step-3"
-        class="verification-step"
-      >
-
-        <div class="step-icon">💬</div>
-
-        <h2>Step 3 — Connect Discord</h2>
-
-        <p>
-          Connect the Discord account you want
-          to verify in the server.
-        </p>
-
-        <button
-          id="discord-login"
-          class="discord-button"
+        <section
+          id="success"
+          class="step"
         >
-          <span>Connect Discord</span>
-        </button>
 
-        <div
-          id="discord-status"
-          class="status-message"
-        ></div>
+          <div class="success-icon">
+            ✓
+          </div>
 
-      </section>
+          <div class="step-label">
+            COMPLETE
+          </div>
 
-      <!-- ================================================ -->
-      <!-- SUCCESS -->
-      <!-- ================================================ -->
+          <h1>
+            Verification complete
+          </h1>
 
-      <section
-        id="success"
-        class="verification-step"
-      >
+          <p>
+            Your Discord account has been
+            successfully verified.
+          </p>
 
-        <div class="success-icon">✅</div>
+          <div class="success-message">
+            <span>🥭</span>
+            Welcome to NexusAI.
+          </div>
 
-        <h2>Verification Complete</h2>
+        </section>
 
-        <p>
-          Your Discord account has been verified
-          successfully.
-        </p>
+        <!-- ================================================= -->
+        <!-- ERROR -->
+        <!-- ================================================= -->
 
-        <div class="success-box">
-          <strong>Welcome to NexusAI!</strong>
-          <br />
-          You now have access to the verified areas
-          of the server.
-        </div>
-
-      </section>
-
-      <!-- ================================================ -->
-      <!-- ERROR -->
-      <!-- ================================================ -->
-
-      <section
-        id="fatal-error"
-        class="verification-step"
-      >
-
-        <div class="error-icon">❌</div>
-
-        <h2>Verification Failed</h2>
-
-        <p id="fatal-error-message">
-          Something went wrong.
-        </p>
-
-        <button
-          class="secondary-button"
-          onclick="window.location.reload()"
+        <section
+          id="fatal-error"
+          class="step"
         >
-          Try Again
-        </button>
 
-      </section>
+          <div class="fatal-icon">
+            !
+          </div>
 
-      <footer>
-        NexusAI • Secure Verification
-      </footer>
+          <div class="step-label">
+            ERROR
+          </div>
 
-    </section>
+          <h1>
+            Verification failed
+          </h1>
+
+          <p id="fatal-error-message">
+            Something went wrong.
+          </p>
+
+          <button
+            class="secondary-button"
+            onclick="window.location.reload()"
+          >
+            Try Again
+          </button>
+
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer>
+          <span class="status-dot"></span>
+          NexusAI Secure Verification
+        </footer>
+
+      </div>
+
+    </div>
+
   </main>
 
   <script src="./script.js"></script>
+
 </body>
 </html>
