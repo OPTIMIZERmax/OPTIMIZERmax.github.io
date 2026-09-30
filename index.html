@@ -559,123 +559,6 @@ content="NexusAI secure verification and private browser access"
        CUSTOM CAPTCHA
        ===================================================== */
 
-    function generateCustomCaptcha() {
-      const alphabet =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-      const values =
-        new Uint32Array(6);
-
-      crypto.getRandomValues(values);
-
-      customCaptchaCode =
-        Array.from(
-          values,
-          value =>
-            alphabet[
-              value % alphabet.length
-            ]
-        ).join("");
-
-      customCaptchaPassed =
-        false;
-
-      const code =
-        byId(
-          "custom-captcha-code"
-        );
-
-      const input =
-        byId(
-          "custom-captcha-input"
-        );
-
-      const status =
-        byId(
-          "custom-captcha-status"
-        );
-
-      if (code) {
-        code.textContent =
-          customCaptchaCode;
-      }
-
-      if (input) {
-        input.value =
-          "";
-      }
-
-      if (status) {
-        status.textContent =
-          "";
-      }
-
-      updateContinueButton();
-    }
-
-    function updateContinueButton() {
-      const button =
-        byId(
-          "continue-step-1"
-        );
-
-      if (!button) {
-        return;
-      }
-
-      button.disabled =
-        !Boolean(
-          turnstileToken
-        ) ||
-        !customCaptchaPassed ||
-        isStartingVerification;
-    }
-
-    function checkCustomCaptcha() {
-      const input =
-        byId(
-          "custom-captcha-input"
-        );
-
-      const status =
-        byId(
-          "custom-captcha-status"
-        );
-
-      const answer =
-        input?.value
-          ?.trim()
-          .toUpperCase() ||
-        "";
-
-      customCaptchaPassed =
-        answer.length === 6 &&
-        answer === customCaptchaCode;
-
-      if (customCaptchaPassed) {
-        if (status) {
-          status.textContent =
-            "Security code accepted.";
-          status.style.color =
-            "var(--success)";
-        }
-      } else if (answer.length === 6) {
-        if (status) {
-          status.textContent =
-            "Incorrect code. Please try again.";
-          status.style.color =
-            "var(--danger)";
-        }
-      } else {
-        if (status) {
-          status.textContent =
-            "";
-        }
-      }
-
-      updateContinueButton();
-    }
-
     /* =====================================================
        TURNSTILE
        ===================================================== */
@@ -2360,6 +2243,127 @@ content="NexusAI secure verification and private browser access"
 
     function byId(id) {
       return document.getElementById(id);
+    }
+
+    /* =====================================================
+       CUSTOM CAPTCHA
+       ===================================================== */
+
+    function generateCustomCaptcha() {
+      const alphabet =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+      const values =
+        new Uint32Array(6);
+
+      crypto.getRandomValues(values);
+
+      customCaptchaCode =
+        Array.from(
+          values,
+          value =>
+            alphabet[
+              value % alphabet.length
+            ]
+        ).join("");
+
+      customCaptchaPassed =
+        false;
+
+      const code =
+        byId(
+          "custom-captcha-code"
+        );
+
+      const input =
+        byId(
+          "custom-captcha-input"
+        );
+
+      const status =
+        byId(
+          "custom-captcha-status"
+        );
+
+      if (code) {
+        code.textContent =
+          customCaptchaCode;
+      }
+
+      if (input) {
+        input.value =
+          "";
+      }
+
+      if (status) {
+        status.textContent =
+          "";
+      }
+
+      updateContinueButton();
+    }
+
+    function updateContinueButton() {
+      const button =
+        byId(
+          "continue-step-1"
+        );
+
+      if (!button) {
+        return;
+      }
+
+      button.disabled =
+        !Boolean(
+          turnstileToken
+        ) ||
+        !customCaptchaPassed ||
+        isStartingVerification;
+    }
+
+    function checkCustomCaptcha() {
+      const input =
+        byId(
+          "custom-captcha-input"
+        );
+
+      const status =
+        byId(
+          "custom-captcha-status"
+        );
+
+      const answer =
+        input?.value
+          ?.trim()
+          .toUpperCase() ||
+        "";
+
+      customCaptchaPassed =
+        answer.length === 6 &&
+        answer === customCaptchaCode;
+
+      if (customCaptchaPassed) {
+        if (status) {
+          status.textContent =
+            "Security code accepted.";
+          status.style.color =
+            "var(--success)";
+        }
+      } else if (answer.length === 6) {
+        if (status) {
+          status.textContent =
+            "Incorrect code. Please try again.";
+          status.style.color =
+            "var(--danger)";
+        }
+      } else {
+        if (status) {
+          status.textContent =
+            "";
+        }
+      }
+
+      updateContinueButton();
     }
 
     function sleep(milliseconds) {
