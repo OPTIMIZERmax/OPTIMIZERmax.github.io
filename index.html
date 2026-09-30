@@ -286,6 +286,72 @@ content="NexusAI secure verification and private browser access"
        BRAND
        ===================================================== */
 
+    .device-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin: 10px auto 0;
+      padding: 7px 10px;
+      border: 1px solid rgba(240, 185, 77, 0.22);
+      border-radius: 999px;
+      background: rgba(240, 185, 77, 0.07);
+      color: var(--warning);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .device-badge-dot {
+      width: 6px;
+      height: 6px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--warning);
+      box-shadow: 0 0 0 4px rgba(240, 185, 77, 0.08);
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        min-height: 100svh;
+        padding:
+          max(10px, env(safe-area-inset-top))
+          max(10px, env(safe-area-inset-right))
+          max(10px, env(safe-area-inset-bottom))
+          max(10px, env(safe-area-inset-left));
+      }
+
+      .verification-card {
+        min-height: calc(100svh - 20px);
+        padding: 28px 18px;
+      }
+
+      .neon-frame {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .verification-card {
+        padding: 26px 14px;
+      }
+
+      .step h1 {
+        font-size: 22px;
+      }
+
+      .challenge-question {
+        font-size: 20px;
+      }
+
+      .discord-button,
+      .neon-button,
+      .secondary-button {
+        min-height: 46px;
+      }
+    }
+
+
+
     .brand {
       position: absolute;
 
@@ -1446,6 +1512,11 @@ content="NexusAI secure verification and private browser access"
         <div class="brand-subtitle">
           Secure Verification
         </div>
+
+      <div class="device-badge" id="device-badge" aria-live="polite">
+        <span class="device-badge-dot" aria-hidden="true"></span>
+        <span id="device-badge-text">Detecting device…</span>
+      </div>
 
       </div>
 
@@ -3663,6 +3734,39 @@ content="NexusAI secure verification and private browser access"
 
       return true;
     }
+
+    function updateDeviceDetection() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const ua = navigator.userAgent || "";
+      const touch = navigator.maxTouchPoints > 0;
+      const coarse = window.matchMedia("(pointer: coarse)").matches;
+
+      let label = "Desktop optimized";
+      if (/iPad|Tablet|Android/i.test(ua) && width >= 600) {
+        label = "Tablet optimized";
+      } else if (/Mobi|iPhone|Android/i.test(ua) || width < 600) {
+        label = "Mobile optimized";
+      } else if (touch || coarse) {
+        label = "Touch-ready desktop";
+      }
+
+      const badge = byId("device-badge");
+      const text = byId("device-badge-text");
+      if (text) {
+        text.textContent = label;
+      }
+      if (badge) {
+        badge.title = `${width} × ${height}px`;
+      }
+
+      document.documentElement.dataset.device =
+        label.toLowerCase().replace(/\s+/g, "-");
+    }
+
+    window.addEventListener("resize", updateDeviceDetection, { passive: true });
+    window.addEventListener("orientationchange", updateDeviceDetection, { passive: true });
+    updateDeviceDetection();
 
     /* =====================================================
        EVENTS
